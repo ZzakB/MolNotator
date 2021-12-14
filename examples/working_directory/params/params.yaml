@@ -1,10 +1,10 @@
 ---
 # Global parameters
 mzmine_suffix: ".mzXML Peak area" # Suffix present in MZmine's CSV output (first character must be a dot)
-pos_mgf: '211028_batch_1_pos.mgf' # MZmine MGF output for POS data
-pos_csv: '211028_batch_1_pos_quant.csv' # MZmine CSV output for POS data
-neg_mgf: '211028_batch_1_neg.mgf' # MZmine MGF output for NEG data
-neg_csv: '211028_batch_1_neg_quant.csv' # MZmine CSV output for NEG data
+pos_mgf: '200912_LDB_Thermo_POS.mgf' # MZmine MGF output for POS data
+pos_csv: '200912_LDB_Thermo_POS.csv' # MZmine CSV output for POS data
+neg_mgf: '200909_LDB_Thermo_NEG.mgf' # MZmine MGF output for NEG data
+neg_csv: '200909_LDB_Thermo_NEG.csv' # MZmine CSV output for NEG data
 mzmine_out: './mzmine_out/' #Folder in which the MZmine outputs are located
 neg_out_0: './0_neg_filtered/' # Duplicate filter NEG output folder
 pos_out_0: './0_pos_filtered/' # Duplicate filter POS output folder
@@ -29,7 +29,7 @@ mix_out_7_2 : './7_simplified_samples/' # MolNet output folder for each sample
 # Duplicate filter parameters
 df_mass_error: 0.002 # Mass error in Da
 df_rt_error: 10 # RT error in seconds
-df_skip: True # True/False to skip duplicate filter
+df_skip: False # True/False to skip duplicate filter
 
 # Fragnotator parameters
 fn_matched_peaks: 3 # Minimum matched peaks for ions to be linked as source precursor and fragment
@@ -66,13 +66,13 @@ mm_bnr_pos: ["[M+H]+", "[M+Na]+", "[M+NH4]+", "[2M+H]+", "[2M+Na]+", "[2M+NH4]+"
 mm_export_samples: False # True/False, whether or not to export results for each sample
 
 # MGF updater parameters
-mu_skip: False # True/False to run or not MGF updater (required SIRIUS formulas)
+mu_skip: True # True/False to run or not MGF updater (requires SIRIUS formulas)
 mu_last_step: "mode_merger" # "mode_merger" or "adnotator" if mode merger was not run (single ion mode)
 mu_sirius_folder_neg: "./SIRIUS_NEG/" # Folder containing the NEG SIRIUS data
 mu_sirius_folder_pos: "./SIRIUS_POS/" # Folder containing the POS SIRIUS data
 
 # Dereplicator parameters:
-db_params: ['params_gnps.yaml', 'params_colotus.yaml'] # List of parameter files for each database to be used
+db_params: ['params_ldb_ions.yaml', 'params_colotus.yaml'] # List of parameter files for each database to be used
 
 # Cosiner parameters
 c_mass_error: 0.002 # Mass error in Da

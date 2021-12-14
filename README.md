@@ -22,14 +22,14 @@ working_directory
 |   input.py
 |
 |___databases
-|  
+|   |   211005_MIX_LDB.mgf
+|   |   211018_COLOTUS_DB.tsv
+|   
 |___mzmine_out
-|   |   211028_batch_1_neg.mgf
-|   |   211028_batch_1_neg_quant.csv
-|   |   211028_batch_1_neg_SIRIUS.mgf
-|   |   211028_batch_1_pos.mgf
-|   |   211028_batch_1_pos_quant.csv
-|   |   211028_batch_1_pos_SIRIUS.mgf
+|   |   200909_LDB_Thermo_NEG.csv
+|   |   200909_LDB_Thermo_NEG.mgf
+|   |   200912_LDB_Thermo_POS.csv
+|   |   200912_LDB_Thermo_POS.mgf
 |    
 |___params
 |   |   fragnotator_table.tsv
@@ -39,7 +39,7 @@ working_directory
 |   |   POS_adduct_table_secondary.tsv
 |   |   params.yaml
 |   |   params_colotus.yaml
-|   |   params_gnps.yaml
+|   |   params_ldb_ions.yaml
 ```
 
 The databases folder contains database files in MGF, TSV or CSV format. Two files are provided in the examples.

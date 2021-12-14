@@ -18,12 +18,12 @@ MolNotator.egg-info/SOURCES.txt
 MolNotator.egg-info/dependency_links.txt
 MolNotator.egg-info/top_level.txt
 examples/input_file.py
-examples/working_directory/mzmine_out/211028_batch_1_neg.mgf
-examples/working_directory/mzmine_out/211028_batch_1_neg_SIRIUS.mgf
-examples/working_directory/mzmine_out/211028_batch_1_neg_quant.csv
-examples/working_directory/mzmine_out/211028_batch_1_pos.mgf
-examples/working_directory/mzmine_out/211028_batch_1_pos_SIRIUS.mgf
-examples/working_directory/mzmine_out/211028_batch_1_pos_quant.csv
+examples/working_directory/databases/211005_MIX_LDB.mgf
+examples/working_directory/databases/211018_COLOTUS_DB.tsv
+examples/working_directory/mzmine_out/200909_LDB_Thermo_NEG.csv
+examples/working_directory/mzmine_out/200909_LDB_Thermo_NEG.mgf
+examples/working_directory/mzmine_out/200912_LDB_Thermo_POS.csv
+examples/working_directory/mzmine_out/200912_LDB_Thermo_POS.mgf
 examples/working_directory/params/NEG_adduct_table_primary.tsv
 examples/working_directory/params/NEG_adduct_table_secondary.tsv
 examples/working_directory/params/POS_adduct_table_primary.tsv
@@ -31,6 +31,5 @@ examples/working_directory/params/POS_adduct_table_secondary.tsv
 examples/working_directory/params/fragnotator_table.tsv
 examples/working_directory/params/params.yaml
 examples/working_directory/params/params_colotus.yaml
-examples/working_directory/params/params_gnps.yaml
-images/icon.png
+examples/working_directory/params/params_ldb_ions.yaml
 images/icon_small.png

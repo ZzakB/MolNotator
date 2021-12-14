@@ -1,6 +1,6 @@
 ---
 # Dereplicator parameters for sanitized GNPS MGF file
-db_prefix: 'coconut' # prefix to be featured before each of the dereplication columns (without underscore "_")
+db_prefix: 'colotus' # prefix to be featured before each of the dereplication columns (without underscore "_")
 db_type: 'neutral' #neutral or ion
 db_folder : './databases/' # Folder in which all databases are located.
 db_file: '211018_COLOTUS_DB.tsv' # database file name, MGF or CSV.
@@ -16,9 +16,9 @@ db_name_field: 'main_id' # Field containing the compound name
 db_mass_field: 'exact_mass' # Field in the MGF or CSV table containing the mass or mz values
 db_adduct_field: # Field in the MGF or CSV table containing the adduct species
 db_rt_field: # name of the retention time field in the MGF or CSV file
-db_formula_field_database: "formula" # Formula field in the database MGF
+db_formula_field_database: 'formula' # Formula field in the database MGF
 db_mode_field: # Field in the MGF table containing the ion mode of the ion/spectrum.
-db_export_fields: ['formula', 'smiles', 'inchi', 'inchikey'] # MGF fields with data to be kept with the dereplication
+db_export_fields: ['smiles', 'inchi', 'inchikey'] # MGF fields with data to be kept with the dereplication
 db_index_field: 'Index' # Index column label for CSV/TSV database, if none, leave empty
 db_unique_field: "inchikey" # Field in the MGF file containing unique STRUCTURE identifiers, so as to not have multiple hits being the same
 db_export_samples: False # True/False, whether or not to export results for each sample

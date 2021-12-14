@@ -1,0 +1,27 @@
+---
+# Dereplicator parameters for sanitized GNPS MGF file
+db_prefix: 'ldb_ion' # prefix to be featured before each of the dereplication columns (without underscore "_")
+db_type: 'ion' #neutral or ion
+db_folder : './databases/' # Folder in which all databases are located.
+db_file: '211005_MIX_LDB.mgf' # database file name, MGF or CSV.
+db_cosine: 0.5 # cosine threshold used for ion dereplication.
+db_matched_peaks: 2 # minimum matched peaks for ion dereplication.
+db_prec_error: 0.004 # precursor mass error for ion and neutral dereplication.
+db_mass_error: 0.002  # fragment mass error for ion dereplication.
+db_rt_error: 10 # retention time error to be used by the rt filter.
+db_hits: 3 # number of hits to be kept from databases in ion and neutral dereplication.
+db_adduct_filter: True # Whether or not ion dereplication should use predicted adducts as filters.
+db_rt_filter: True # Whether or not dereplication should use a retention time filter.
+db_name_field: 'compound_name' # Field containing the compound name
+db_mass_field: 'precursor_mz' # Field in the MGF or CSV table containing the mass or mz values
+db_adduct_field: 'adduct' # Field in the MGF or CSV table containing the adduct species
+db_rt_field: 'rtinseconds' # name of the retention time field in the MGF or CSV file
+db_formula_field_database: 'formula' # Formula field in the database MGF
+db_mode_field: 'ion_mode' # Field in the MGF table containing the ion mode of the ion/spectrum.
+db_export_fields: ['smiles', 'inchi', 'inchikey', 'class', 'instrument'] # MGF fields with data to be kept with the dereplication
+db_index_field: 'Index' # Index column label for CSV/TSV database, if none, leave empty
+db_unique_field: "inchikey" # Field in the MGF file containing unique STRUCTURE identifiers, so as to not have multiple hits being the same
+db_export_samples: False # True/False, whether or not to export results for each sample
+
+
+
