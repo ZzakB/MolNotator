@@ -1,0 +1,17 @@
+Adduct_code	Adduct	Charge	Adduct_mass	Mol_multiplier	Complexity	Group
+M1|m1H|pC4H11N	[M-H+C4H11N]-	-1	72.081324	1	3	H
+M1|m1H|pHCOOH	[M-H+HCOOH]-	-1	44.997655	1	3	H
+M1|m1H|	[M-H]-	-1	-1.007825	1	1	H
+M1|p1Cl|	[M+Cl]-	-1	34.968853	1	2	Cl
+M1|m2Hp1Na|pHCOOH	[M-2H+Na+HCOOH]-	-1	66.9796	1	5	H
+M1|m2Hp1Na|	[M-2H+Na]-	-1	20.97412	1	4	H
+M1|m2Hp1K|	[M-2H+K]-	-1	36.948058	1	4	H
+M2|m1H|pC4H11N	[2M-H+C4H11N]-	-1	72.081324	2	4	H
+M2|m1H|pHCOOH	[2M-H+HCOOH]-	-1	44.997655	2	4	H
+M2|m1H|	[2M-H]-	-1	-1.007825	2	3	H
+M2|p1Cl|	[2M+Cl]-	-1	34.968853	2	3	Cl
+M2|m2Hp1Na|pHCOOH	[2M-2H+Na+HCOOH]-	-1	66.9796	2	6	H
+M2|m2Hp1Na|	[2M-2H+Na]-	-1	20.97412	2	5	H
+M2|m2Hp1K|	[2M-2H+K]-	-1	36.948058	2	5	H
+M3|m1H|	[3M-H]-	-1	-1.007825	3	4	H
+M3|p1Cl|	[3M+Cl]-	-1	34.968853	3	4	Cl

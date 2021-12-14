@@ -1,0 +1,7 @@
+Adduct_code	Adduct	Charge	Adduct_mass	Mol_multiplier	Complexity	Group
+M3|m2Hp1Na|pHCOOH	[3M-2H+Na+HCOOH]-	-1	66.9796	3	7	H
+M3|m2Hp1Na|	[3M-2H+Na]-	-1	20.97412	3	6	H
+M4|m1H|	[4M-H]-	-1	-1.007825	4	5	H
+M4|p1Cl|	[4M+Cl]-	-1	34.968853	4	5	Cl
+M4|m2Hp1Na|pHCOOH	[4M-2H+Na+HCOOH]-	-1	66.9796	4	8	H
+M4|m2Hp1Na|	[4M-2H+Na]-	-1	20.97412	4	7	H

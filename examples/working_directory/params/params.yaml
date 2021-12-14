@@ -1,0 +1,88 @@
+---
+# Global parameters
+mzmine_suffix: ".mzXML Peak area" # Suffix present in MZmine's CSV output (first character must be a dot)
+pos_mgf: '211028_batch_1_pos.mgf' # MZmine MGF output for POS data
+pos_csv: '211028_batch_1_pos_quant.csv' # MZmine CSV output for POS data
+neg_mgf: '211028_batch_1_neg.mgf' # MZmine MGF output for NEG data
+neg_csv: '211028_batch_1_neg_quant.csv' # MZmine CSV output for NEG data
+mzmine_out: './mzmine_out/' #Folder in which the MZmine outputs are located
+neg_out_0: './0_neg_filtered/' # Duplicate filter NEG output folder
+pos_out_0: './0_pos_filtered/' # Duplicate filter POS output folder
+pos_out_1: './1_pos_sliced_mgf/' # MGF slicer POS output folder
+neg_out_1: './1_neg_sliced_mgf/' # MGF slicer NEG output folder
+pos_out_2: './2_pos_fragnotation/' # Fragnotator POS output folder
+neg_out_2: './2_neg_fragnotation/' # Fragnotator NEG output folder
+pos_out_3_1: './3_pos_adnotation_full/' # Fragnotator POS output folder
+pos_out_3_2: './3_pos_adnotation_samples/' # Fragnotator POS output folder for each sample
+neg_out_3_1: './3_neg_adnotation_full/' # Fragnotator NEG output folder
+neg_out_3_2: './3_neg_adnotation_samples/' # Fragnotator NEG output folder for each sample
+mix_out_4_1: './4_mix_merged_full/' # Mode merger output folder
+mix_out_4_2: './4_mix_merged_samples/' # Mode merger output folder for each sample
+mix_mgf_out_4: './4_mix_mgf_updated/' # MGF updater folder with updated data from the processing
+mix_out_5_1: './5_mix_dereplicated_full/' # Dereplicator output folder
+mix_out_5_2: './5_mix_dereplicated_samples/' # Dereplicator output folder for each sample
+mix_out_6_1: './6_mix_cosined_full/' # Cosiner output folder
+mix_out_6_2: './6_mix_cosined_samples/' # Cosiner output folder for each sample
+mix_out_7_1 : './7_simplified_full/' # MolNet output folder
+mix_out_7_2 : './7_simplified_samples/' # MolNet output folder for each sample
+
+# Duplicate filter parameters
+df_mass_error: 0.002 # Mass error in Da
+df_rt_error: 10 # RT error in seconds
+df_skip: True # True/False to skip duplicate filter
+
+# Fragnotator parameters
+fn_matched_peaks: 3 # Minimum matched peaks for ions to be linked as source precursor and fragment
+fn_score_threshold: 0.1 # Minimum ratio of matched peaks for ions to be linked as source precursor and fragment
+fn_mass_error: 0.001 # Mass error in Da
+fn_rt_error: 10 # RT error in seconds
+fn_fragtable: "fragnotator_table.tsv" # Fragnotator table file name
+
+# Adnotator_parameters
+an_mass_error: 0.002 # Mass error in Da
+an_prec_mass_error: 0.1 # Mass error in Da for precursor m/z values
+an_rt_error: 10 # RT error in seconds
+an_cos_threshold: 0.2 # cosine threhold for adducts of the same type
+an_hardcos_threshold: 0.6 # cosine threshold for molecules produced by adduct not satisfying BNR
+an_addtable_primary_neg: "NEG_adduct_table_primary.tsv" # NEG adduct table file containing the species used for combinatorial computing
+an_addtable_secondary_neg: "NEG_adduct_table_secondary.tsv" # NEG adduct table containing the species to be searched once molecules are already established
+an_addtable_primary_pos: "POS_adduct_table_primary.tsv" # POS adduct table file containing the species used for combinatorial computing
+an_addtable_secondary_pos: "POS_adduct_table_secondary.tsv" # POS adduct table containing the species to be searched once molecules are already established
+an_run_bnr: True # True/False, whether or not to run BNR / Basic Neutral Requirements
+an_bnr_neg: ["[M-H]-", "[2M-H]-"] # Basic Neutral Requirements NEG, molecules must have at least one of these adducts to be valid
+an_bnr_pos: ["[M+H]+", "[M+Na]+", "[M+NH4]+", "[2M+H]+", "[2M+Na]+", "[2M+NH4]+"] # Basic Neutral Requirements POS, molecules must have at least one of these adducts to be valid
+an_export_samples: False # True/False, whether or not to export results for each sample
+
+# Mode merger parameters
+mm_mass_error: 0.003 # Mass error in Da
+mm_prec_mass_error: 0.1 # Mass error in Da for precursor m/z values
+mm_rt_error: 15 # RT error in seconds
+mm_addtable_primary_neg: "NEG_adduct_table_primary.tsv" # NEG adduct table file containing the species used for combinatorial computing
+mm_addtable_secondary_neg: "NEG_adduct_table_secondary.tsv" # NEG adduct table containing the species to be searched once molecules are already established
+mm_addtable_primary_pos: "POS_adduct_table_primary.tsv" # POS adduct table file containing the species used for combinatorial computing
+mm_addtable_secondary_pos: "POS_adduct_table_secondary.tsv" # POS adduct table containing the species to be searched once molecules are already established
+mm_bnr_neg: ["[M-H]-", "[2M-H]-"] # Basic Neutral Requirements NEG, molecules must have at least one of these adducts to be valid
+mm_bnr_pos: ["[M+H]+", "[M+Na]+", "[M+NH4]+", "[2M+H]+", "[2M+Na]+", "[2M+NH4]+"] # Basic Neutral Requirements POS, molecules must have at least one of these adducts to be valid
+mm_export_samples: False # True/False, whether or not to export results for each sample
+
+# MGF updater parameters
+mu_skip: False # True/False to run or not MGF updater (required SIRIUS formulas)
+mu_last_step: "mode_merger" # "mode_merger" or "adnotator" if mode merger was not run (single ion mode)
+mu_sirius_folder_neg: "./SIRIUS_NEG/" # Folder containing the NEG SIRIUS data
+mu_sirius_folder_pos: "./SIRIUS_POS/" # Folder containing the POS SIRIUS data
+
+# Dereplicator parameters:
+db_params: ['params_gnps.yaml', 'params_colotus.yaml'] # List of parameter files for each database to be used
+
+# Cosiner parameters
+c_mass_error: 0.002 # Mass error in Da
+c_lowcos_threshold: 0.2 # Same as the cosine thresholds used before
+c_hardcos_threshold: 0.6 # Higher cosine threshold
+c_matched_peaks: 2 # Minimum shared peaks
+c_purge_empty_spectra: True # True/False, whether or not to delete nodes with empty spectra (no m/z - int pairs)
+c_export_samples: True # True/False, whether or not to export results for each sample
+
+# MolNet parameters
+mn_mass_error: 0.002 # Mass error in Da
+mn_cosine_threshold: 0.98 # Cosine threshold, must be higher than usual here
+mn_matched_peaks: 8 # Minimum shared peaks, must be higher than usual here

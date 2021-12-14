@@ -1,0 +1,6 @@
+Adduct_code	Adduct	Charge	Adduct_mass	Mol_multiplier	Complexity	Group
+M3|p1K|	[3M+K]+	1	38.963708	3	5	K
+M4|p1H|	[4M+H]+	1	1.007825	4	5	H
+M4|p1NH4|	[4M+NH4]+	1	18.034374	4	5	H
+M4|p1Na|	[4M+Na]+	1	22.98977	4	6	Na
+M4|p1K|	[4M+K]+	1	38.963708	4	6	K
