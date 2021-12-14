@@ -1,4 +1,4 @@
-[![icon-small.png](https://i.postimg.cc/pXWD28JL/icon-small.png)](https://linktogithub)
+[![icon-small.png](https://github.com/ZzakB/MolNotator/blob/main/images/icon_small.png?raw=true)](https://github.com/ZzakB/MolNotator)
 
 MolNotator is a Python package that predicts the actual molecules present in LC-MS/MS data.
 The final data is represented in the form of actual molecular networks, representing the predicted molecules as nodes amidst the ions they generated.
@@ -16,7 +16,7 @@ The aim of the method is to help users of LCMS to pinpoint the molecules of inte
 **Note:** This README provides instructions for setup and using basic functions of MolNotator.
 For more details, see the [paper](https://linktopaper).
 
-MolNotator works within a user-defined project folder with a specific file structure. An example is given in the [examples](https://linktoexamplesgithub) folder:
+MolNotator works within a user-defined project folder with a specific file structure. An example is given in the [examples](https://github.com/ZzakB/MolNotator/tree/main/examples) folder:
 ```
 working_directory
 |   input.py
@@ -105,7 +105,7 @@ We deploy the MolNotator package to [PyPi](https://test.pypi.org/project/MolNota
 If you cannot use the PyPi bundle or want to install MolNotator from source, we suggest these steps:\
 Open a terminal and clone this repository using 
 ```bash
- git clone https://linktogithubrepo/molnotator.git
+ git clone https://github.com/ZzakB/MolNotator.git
 ```
 Move to the root directory of your MolNotator repository and run the following command in it 
 ```bash
@@ -114,7 +114,7 @@ Move to the root directory of your MolNotator repository and run the following c
 **Note:** Be aware that you still have to install the above mentioned dependencies and link them correctly.
 
 ## Usage/Examples
-MolNotator depends on a python [input file](https://linktoinpytfilegithub.py) to be runned. The example here under can be used as a template :
+MolNotator depends on a python [input file](https://github.com/ZzakB/MolNotator/blob/main/examples/input_file.py) to be runned. The example here under can be used as a template :
 ```python
 import os 
 import yaml
@@ -194,8 +194,8 @@ python input_file.py
 **Note:** The output is written to the working directory.
 
 ## License
-MolNotator is published under the [MIT](https://linktomitfile) licence. 
-For more information, please read the `LICENSE` file.
+MolNotator is published under the [MIT](https://choosealicense.com/licenses/mit/) licence. 
+For more information, please read the [LICENSE](https://github.com/ZzakB/MolNotator/blob/main/LICENCE) file.
 Using MolNotator in your commercial or non-commercial project is generally possible when giving a proper reference to this project and the related paper.
  
 
