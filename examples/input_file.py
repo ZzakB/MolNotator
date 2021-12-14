@@ -10,7 +10,7 @@ from MolNotator.Dereplicator import Dereplicator
 from MolNotator.Cosiner import Cosiner
 from MolNotator.MolNet import MolNet
 
-wd = './examples/working_directory'
+wd = './working_directory'
 os.chdir(wd)
 with open("./params/params.yaml") as info:
     params = yaml.load(info, Loader=yaml.FullLoader)
