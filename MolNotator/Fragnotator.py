@@ -12,7 +12,7 @@ def Fragnotator(params : dict, ion_mode : str):
         rt_low = rt - rt_error
         rt_high = rt + rt_error
         sliced_table = input_table[input_table['rt'].between(rt_low,
-                                  rt_high, inclusive = True)].copy()
+                                  rt_high, inclusive = "both")].copy()
         return sliced_table.drop(ion_id)
     
     
@@ -74,7 +74,7 @@ def Fragnotator(params : dict, ion_mode : str):
                 ion2_mz = node_table['mz'][j]
                 ion2_mz_low = ion2_mz - mass_error
                 ion2_mz_high = ion2_mz + mass_error
-                match = ion1_msms.between(ion2_mz_low, ion2_mz_high, inclusive = True)
+                match = ion1_msms.between(ion2_mz_low, ion2_mz_high, inclusive = "both")
                 if match.sum() > 0 : # if the frag candidate m/z is found in MSMS:
                     ion2_msms = mgf_file[j].peaks.mz # extract frag's MSMS to run tests
                     matched_peaks = 0
@@ -82,7 +82,7 @@ def Fragnotator(params : dict, ion_mode : str):
                     for frag in ion2_msms : # find the number of matched peaks
                         frag_low = frag - mass_error
                         frag_high = frag + mass_error
-                        frag_found = ion1_msms.between(frag_low, frag_high, inclusive = True).sum()
+                        frag_found = ion1_msms.between(frag_low, frag_high, inclusive = "both").sum()
                         if frag_found > 0 :
                             matched_peaks += 1
                         else :
@@ -166,7 +166,7 @@ def Fragnotator(params : dict, ion_mode : str):
         for i in frag_table.index:
             low_mass = frag_table.loc[i, 'mass'] - mass_error
             high_mass = frag_table.loc[i, 'mass'] + mass_error
-            temp_edge_table = edge_table[edge_table['mz_gap'].between(low_mass, high_mass, inclusive = True)]
+            temp_edge_table = edge_table[edge_table['mz_gap'].between(low_mass, high_mass, inclusive = "both")]
             for j in temp_edge_table.index : 
                 edge_table.loc[j, 'Fragnotation'] = frag_table.loc[i, 'loss']
         return(edge_table)

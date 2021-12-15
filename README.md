@@ -86,14 +86,14 @@ Before installing MolNotator, make sure you have the following requirements inst
 
 - pandas
 - NumPy
-- matchms >= 0.10.0
+- matchms <= 0.6.2
 - tqdm
 - PyYaml
 
 These dependencies can be installed using the following command :
 
 ```bash
- pip install -U pandas numpy matchms tqdm pyyaml
+ pip install -U pandas==1.3.5 numpy matchms==0.6.2 tqdm pyyaml
 ```
 ### Via PyPI
 We deploy the MolNotator package to [PyPi](https://test.pypi.org/project/MolNotator). You can install MolNotator as a python module with:
@@ -128,8 +128,13 @@ from MolNotator.Dereplicator import Dereplicator
 from MolNotator.Cosiner import Cosiner
 from MolNotator.MolNet import MolNet
 
-wd = './examples/working_directory' # <---- change the path to your working directory
+wd = './working_directory' # <---- change the path to your working directory
 os.chdir(wd)
+
+for files in os.listdir(os.getcwd()):
+    if files not in ['databases','mzmine_out','params']:
+        raise Exception('Potential output files already exist! They need to be removed or moved outside the working directory.')
+
 with open("./params/params.yaml") as info:
     params = yaml.load(info, Loader=yaml.FullLoader)
 

@@ -10,8 +10,8 @@ def Cosiner(params : dict):
         pos_csv = pd.read_csv(pos_csv_file, index_col ="row ID")
         neg_csv = Column_correction(neg_csv)
         pos_csv = Column_correction(pos_csv)
-        neg_csv.columns = neg_csv.columns.str.replace(".mzXML Peak area", "").str.replace('NEG_', '')
-        pos_csv.columns = pos_csv.columns.str.replace(".mzXML Peak area", "").str.replace('POS_', '')
+        neg_csv.columns = neg_csv.columns.str.replace(".mzXML Peak area", "", regex = False).str.replace('NEG_', '', regex = False)
+        pos_csv.columns = pos_csv.columns.str.replace(".mzXML Peak area", "", regex = False).str.replace('POS_', '', regex = False)
         neg_csv.drop(["row m/z", "row retention time"], axis = 1, inplace = True)
         pos_csv.drop(["row m/z", "row retention time"], axis = 1, inplace = True)
         samples = list(set(list(neg_csv.columns) + list(pos_csv.columns)))
@@ -121,11 +121,11 @@ def Cosiner(params : dict):
     
     
     # Make a Series with MGF indexes as data and feature IDs as indexes
-    neg_mgf_data = pd.Series()
+    neg_mgf_data = pd.Series(dtype = int)
     for i in range(len(neg_mgf)):
         neg_mgf_data.loc[int(neg_mgf[i].get("feature_id"))] = i
     
-    pos_mgf_data = pd.Series()
+    pos_mgf_data = pd.Series(dtype = int)
     for i in range(len(pos_mgf)):
         pos_mgf_data.loc[int(pos_mgf[i].get("feature_id"))] = i
     
@@ -153,7 +153,7 @@ def Cosiner(params : dict):
     remains_ions_pos +=  list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'pos_precursor'])
     
     neg_node_table = node_table[node_table['ion_mode'] == "NEG"]
-    cluster_ion_list = pd.Series(index = cluster_list_neg)
+    cluster_ion_list = pd.Series(index = cluster_list_neg, dtype = int)
     for i in cluster_ion_list.index:
         tmp_rows = neg_node_table.index[neg_node_table['cluster_id'] == i]
         cluster_ion_list[i] = '|'.join(neg_node_table.loc[tmp_rows, 'mgf_index'].dropna().astype(int).astype(str))
@@ -201,7 +201,7 @@ def Cosiner(params : dict):
         full_matches.append(tmp_table['matches'])
         
     pos_node_table = node_table[node_table['ion_mode'] == "POS"]
-    cluster_ion_list = pd.Series(index = cluster_list_pos)
+    cluster_ion_list = pd.Series(index = cluster_list_pos, dtype = int)
     for i in cluster_ion_list.index:
         tmp_rows = pos_node_table.index[pos_node_table['cluster_id'] == i]
         cluster_ion_list[i] = '|'.join(pos_node_table.loc[tmp_rows, 'mgf_index'].dropna().astype(int).astype(str))

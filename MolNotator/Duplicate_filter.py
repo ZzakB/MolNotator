@@ -76,8 +76,8 @@ def Duplicate_filter(params : dict, ion_mode : str):
                 candidates.sort()
                 candidates = pool_table.loc[candidates]
                 
-                candidates = candidates[candidates['rt'].between(seed_rt - rt_error, seed_rt + rt_error, inclusive = True)]
-                candidates = candidates[candidates['mz'].between(seed_mz - mass_error, seed_mz + mass_error, inclusive = True)]
+                candidates = candidates[candidates['rt'].between(seed_rt - rt_error, seed_rt + rt_error, inclusive = "both")]
+                candidates = candidates[candidates['mz'].between(seed_mz - mass_error, seed_mz + mass_error, inclusive = "both")]
                 candidates = candidates.index.tolist()
                 ion_pool.remove(ion_seed)
                 ion_pool = list(set(ion_pool) - set(candidates))
@@ -194,9 +194,9 @@ def Duplicate_filter(params : dict, ion_mode : str):
             samples_j = csv_file.loc[id_j, samples][samples_j]
             for sample in samples_j.index:
                 if sample in samples_i.index:
-                    csv_file.loc[idx_i, sample] = max(samples_i[sample], samples_j[sample])
+                    csv_file.loc[id_i, sample] = max(samples_i[sample], samples_j[sample])
                 else:
-                    csv_file.loc[idx_i, sample] = samples_j[sample]
+                    csv_file.loc[id_i, sample] = samples_j[sample]
     
     # Filter kept ions to eliminate some ions that were missed
 

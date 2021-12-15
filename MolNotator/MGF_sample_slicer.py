@@ -39,7 +39,7 @@ def mgf_slicer(params : dict, ion_mode : str):
     
     # Get the sample list
     samples = pd.Series(csv_file.columns)
-    samples = list(samples.str.replace(mzmine_suffix, '.mgf'))
+    samples = list(samples.str.replace(mzmine_suffix, '.mgf', regex = False))
     csv_file.columns = samples
     samples.remove('row ID')
     samples.remove('row m/z')

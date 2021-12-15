@@ -174,8 +174,8 @@ def Dereplicator(params : dict, db_params : dict):
         pos_csv = pd.read_csv(pos_csv_file, index_col ="row ID")
         neg_csv = Column_correction(neg_csv)
         pos_csv = Column_correction(pos_csv)
-        neg_csv.columns = neg_csv.columns.str.replace(".mzXML Peak area", "").str.replace('NEG_', '')
-        pos_csv.columns = pos_csv.columns.str.replace(".mzXML Peak area", "").str.replace('POS_', '')
+        neg_csv.columns = neg_csv.columns.str.replace(".mzXML Peak area", "", regex = False).str.replace('NEG_', '', regex = False)
+        pos_csv.columns = pos_csv.columns.str.replace(".mzXML Peak area", "", regex = False).str.replace('POS_', '', regex = False)
         neg_csv.drop(["row m/z", "row retention time"], axis = 1, inplace = True)
         pos_csv.drop(["row m/z", "row retention time"], axis = 1, inplace = True)
         samples = list(set(list(neg_csv.columns) + list(pos_csv.columns)))
@@ -331,7 +331,7 @@ def Dereplicator(params : dict, db_params : dict):
             ion_mz = node_table.loc[i, "mz"]
             ion_mgf_idx = int(node_table.loc[i, "mgf_index"])
             ion_mode = node_table.loc[i, "ion_mode"]
-            hits = database_table[database_table['mz'].between(ion_mz - db_prec_error, ion_mz + db_prec_error, inclusive = True)].copy()
+            hits = database_table[database_table['mz'].between(ion_mz - db_prec_error, ion_mz + db_prec_error, inclusive = "both")].copy()
             
             # Ion mode filter
             if ion_mode == "NEG":
@@ -348,7 +348,7 @@ def Dereplicator(params : dict, db_params : dict):
                     hits = hits[hits['adduct'] == adduct]
             if db_rt_filter:
                 rt = node_table.loc[i, 'rt']
-                hits = hits[hits['rt'].between(rt - db_rt_error, rt + db_rt_error, inclusive = True)]
+                hits = hits[hits['rt'].between(rt - db_rt_error, rt + db_rt_error, inclusive = "both")]
             
             # Calculate cosine similarity if hit table is not empty
             similarity_list = list()
@@ -461,10 +461,10 @@ def Dereplicator(params : dict, db_params : dict):
         for i in tqdm(node_table.index):
             if node_table.loc[i, "status_universal"] == "neutral":
                 mass = node_table.loc[i, "mz"]
-                hits = database_table[database_table['mass'].between(mass - db_prec_error, mass + db_prec_error, inclusive = True)].copy()
+                hits = database_table[database_table['mass'].between(mass - db_prec_error, mass + db_prec_error, inclusive = "both")].copy()
                 if db_adduct_filter :
                     rt = node_table.loc[i, 'rt']
-                    hits = hits[hits['rt'].between(rt - db_rt_error, rt + db_rt_error, inclusive = True)]
+                    hits = hits[hits['rt'].between(rt - db_rt_error, rt + db_rt_error, inclusive = "both")]
                 if len(hits) == 0 : 
                     new_row = [i, None, None, None] + [None]*len(db_params['db_export_fields'])
                     derep_table.append(new_row)    

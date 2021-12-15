@@ -10,8 +10,8 @@ def Adnotator(params : dict, ion_mode : str):
         mz_H = -1.007825 + mz - 72.081324
         mz_Cl = 34.968853 + mz - 72.081324
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl])
     
@@ -21,8 +21,8 @@ def Adnotator(params : dict, ion_mode : str):
         mz_H = -1.007825 + mz - 44.997654
         mz_Cl = 34.968853 + mz - 44.997654
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl])
     
@@ -34,9 +34,9 @@ def Adnotator(params : dict, ion_mode : str):
         mz_m2HpNa = 20.97412 + mz - 66.979600
         
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa])
 
@@ -46,7 +46,7 @@ def Adnotator(params : dict, ion_mode : str):
         peaks = pd.Series(mgf_file[ion_idx].peaks.mz)
         mz_H = -1.007825 + mz - 66.979600
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H])
     
@@ -55,7 +55,7 @@ def Adnotator(params : dict, ion_mode : str):
         peaks = pd.Series(mgf_file[ion_idx].peaks.mz)
         mz_H = -1.007825 + mz - 36.948058
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H])
     
@@ -66,9 +66,9 @@ def Adnotator(params : dict, ion_mode : str):
         mz_Cl = 34.968853 + (mz - 72.081324)/2
         mz_m2HpNa = 20.97412 + (mz - 72.081324)/2
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa])
     
@@ -80,10 +80,10 @@ def Adnotator(params : dict, ion_mode : str):
         mz_m2HpNa = 20.97412 + (mz - 44.997654)/2
         mz_mHpHCOOH = 44.997654 + (mz - 44.997654)/2
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_mHpHCOOH = peaks.between(mz_mHpHCOOH - prec_mass_error, mz_mHpHCOOH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_mHpHCOOH = peaks.between(mz_mHpHCOOH - prec_mass_error, mz_mHpHCOOH + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_mHpHCOOH])
     
@@ -94,9 +94,9 @@ def Adnotator(params : dict, ion_mode : str):
         mz_Cl = 34.968853 + (mz + 1.007825)/2
         mz_m2HpNa = 20.97412 + (mz + 1.007825)/2
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa])
     
@@ -107,9 +107,9 @@ def Adnotator(params : dict, ion_mode : str):
         mz_Cl = 34.968853 + (mz - 34.968853)/2
         mz_m2HpNa = 20.97412 + (mz - 34.968853)/2
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa])
     
@@ -121,10 +121,10 @@ def Adnotator(params : dict, ion_mode : str):
         mz_m2HpNa = 20.97412 + (mz - 66.979600)/2
         mz_m2HpNapHCOOH = 66.9796 + (mz - 66.979600)/2
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_m2HpNapHCOOH])
     
@@ -136,10 +136,10 @@ def Adnotator(params : dict, ion_mode : str):
         mz_m2HpNa = 20.97412 + (mz - 20.97412)/2
         mz_m2HpNapHCOOH = 66.9796 + (mz - 20.97412)/2
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_m2HpNapHCOOH])
     
@@ -152,11 +152,11 @@ def Adnotator(params : dict, ion_mode : str):
         mz_m2HpNapHCOOH = 66.9796 + (mz - 36.948058)/2
         mz_m2HpK = 36.948058 + (mz - 36.948058)/2
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_m2HpNapHCOOH, valid_m2HpK])
     
@@ -175,17 +175,17 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M2m2HpNapHCOOH = 66.9796 + (mz + 1.007825)*(2/3)
         mz_M2m2HpK = 36.948058 + (mz + 1.007825)*(2/3)
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_m2HpNapHCOOH, valid_m2HpK,
                     valid_M2mH, valid_M2pCl, valid_M2m2HpNa, valid_M2m2HpNapHCOOH, valid_M2m2HpK])
@@ -205,17 +205,17 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M2m2HpNapHCOOH = 66.9796 + (mz - 34.968853)*(2/3)
         mz_M2m2HpK = 36.948058 + (mz - 34.968853)*(2/3)
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_m2HpNapHCOOH, valid_m2HpK,
                     valid_M2mH, valid_M2pCl, valid_M2m2HpNa, valid_M2m2HpNapHCOOH, valid_M2m2HpK])
@@ -235,17 +235,17 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M2m2HpNapHCOOH = 66.9796 + (mz - 66.979600)*(2/3)
         mz_M2m2HpK = 36.948058 + (mz - 66.979600)*(2/3)
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_m2HpNapHCOOH, valid_m2HpK,
                     valid_M2mH, valid_M2pCl, valid_M2m2HpNa, valid_M2m2HpNapHCOOH, valid_M2m2HpK])
@@ -265,17 +265,17 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M2m2HpNapHCOOH = 66.9796 + (mz - 20.97412)*(2/3)
         mz_M2m2HpK = 36.948058 + (mz - 20.97412)*(2/3)
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_m2HpNapHCOOH, valid_m2HpK,
                     valid_M2mH, valid_M2pCl, valid_M2m2HpNa, valid_M2m2HpNapHCOOH, valid_M2m2HpK])
@@ -301,23 +301,23 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M3m2HpNapHCOOH = 66.9796 + (mz + 1.007825)*(3/4)
         mz_M3m2HpK = 36.948058 + (mz + 1.007825)*(3/4)
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M3mH = peaks.between(mz_M3mH - prec_mass_error, mz_M3mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pCl = peaks.between(mz_M3pCl - prec_mass_error, mz_M3pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpNa = peaks.between(mz_M3m2HpNa - prec_mass_error, mz_M3m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpNapHCOOH = peaks.between(mz_M3m2HpNapHCOOH - prec_mass_error, mz_M3m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpK = peaks.between(mz_M3m2HpK - prec_mass_error, mz_M3m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M3mH = peaks.between(mz_M3mH - prec_mass_error, mz_M3mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pCl = peaks.between(mz_M3pCl - prec_mass_error, mz_M3pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpNa = peaks.between(mz_M3m2HpNa - prec_mass_error, mz_M3m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpNapHCOOH = peaks.between(mz_M3m2HpNapHCOOH - prec_mass_error, mz_M3m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpK = peaks.between(mz_M3m2HpK - prec_mass_error, mz_M3m2HpK + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_m2HpNapHCOOH, valid_m2HpK,
                     valid_M2mH, valid_M2pCl, valid_M2m2HpNa, valid_M2m2HpNapHCOOH, valid_M2m2HpK,
                     valid_M3mH, valid_M3pCl, valid_M3m2HpNa, valid_M3m2HpNapHCOOH, valid_M3m2HpK])
@@ -343,23 +343,23 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M3m2HpNapHCOOH = 66.9796 + (mz - 34.968853)*(3/4)
         mz_M3m2HpK = 36.948058 + (mz - 34.968853)*(3/4)
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M3mH = peaks.between(mz_M3mH - prec_mass_error, mz_M3mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pCl = peaks.between(mz_M3pCl - prec_mass_error, mz_M3pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpNa = peaks.between(mz_M3m2HpNa - prec_mass_error, mz_M3m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpNapHCOOH = peaks.between(mz_M3m2HpNapHCOOH - prec_mass_error, mz_M3m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpK = peaks.between(mz_M3m2HpK - prec_mass_error, mz_M3m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M3mH = peaks.between(mz_M3mH - prec_mass_error, mz_M3mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pCl = peaks.between(mz_M3pCl - prec_mass_error, mz_M3pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpNa = peaks.between(mz_M3m2HpNa - prec_mass_error, mz_M3m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpNapHCOOH = peaks.between(mz_M3m2HpNapHCOOH - prec_mass_error, mz_M3m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpK = peaks.between(mz_M3m2HpK - prec_mass_error, mz_M3m2HpK + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_m2HpNapHCOOH, valid_m2HpK,
                     valid_M2mH, valid_M2pCl, valid_M2m2HpNa, valid_M2m2HpNapHCOOH, valid_M2m2HpK,
                     valid_M3mH, valid_M3pCl, valid_M3m2HpNa, valid_M3m2HpNapHCOOH, valid_M3m2HpK])
@@ -385,23 +385,23 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M3m2HpNapHCOOH = 66.9796 + (mz - 66.979600)*(3/4)
         mz_M3m2HpK = 36.948058 + (mz - 66.979600)*(3/4)
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M3mH = peaks.between(mz_M3mH - prec_mass_error, mz_M3mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pCl = peaks.between(mz_M3pCl - prec_mass_error, mz_M3pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpNa = peaks.between(mz_M3m2HpNa - prec_mass_error, mz_M3m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpNapHCOOH = peaks.between(mz_M3m2HpNapHCOOH - prec_mass_error, mz_M3m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpK = peaks.between(mz_M3m2HpK - prec_mass_error, mz_M3m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M3mH = peaks.between(mz_M3mH - prec_mass_error, mz_M3mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pCl = peaks.between(mz_M3pCl - prec_mass_error, mz_M3pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpNa = peaks.between(mz_M3m2HpNa - prec_mass_error, mz_M3m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpNapHCOOH = peaks.between(mz_M3m2HpNapHCOOH - prec_mass_error, mz_M3m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpK = peaks.between(mz_M3m2HpK - prec_mass_error, mz_M3m2HpK + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_m2HpNapHCOOH, valid_m2HpK,
                     valid_M2mH, valid_M2pCl, valid_M2m2HpNa, valid_M2m2HpNapHCOOH, valid_M2m2HpK,
                     valid_M3mH, valid_M3pCl, valid_M3m2HpNa, valid_M3m2HpNapHCOOH, valid_M3m2HpK])
@@ -427,23 +427,23 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M3m2HpNapHCOOH = 66.9796 + (mz - 20.97412)*(3/4)
         mz_M3m2HpK = 36.948058 + (mz - 20.97412)*(3/4)
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Cl = peaks.between(mz_Cl - prec_mass_error, mz_Cl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNa = peaks.between(mz_m2HpNa - prec_mass_error, mz_m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpNapHCOOH = peaks.between(mz_m2HpNapHCOOH - prec_mass_error, mz_m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_m2HpK = peaks.between(mz_m2HpK - prec_mass_error, mz_m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2mH = peaks.between(mz_M2mH - prec_mass_error, mz_M2mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pCl = peaks.between(mz_M2pCl - prec_mass_error, mz_M2pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNa = peaks.between(mz_M2m2HpNa - prec_mass_error, mz_M2m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpNapHCOOH = peaks.between(mz_M2m2HpNapHCOOH - prec_mass_error, mz_M2m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2m2HpK = peaks.between(mz_M2m2HpK - prec_mass_error, mz_M2m2HpK + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M3mH = peaks.between(mz_M3mH - prec_mass_error, mz_M3mH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pCl = peaks.between(mz_M3pCl - prec_mass_error, mz_M3pCl + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpNa = peaks.between(mz_M3m2HpNa - prec_mass_error, mz_M3m2HpNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpNapHCOOH = peaks.between(mz_M3m2HpNapHCOOH - prec_mass_error, mz_M3m2HpNapHCOOH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3m2HpK = peaks.between(mz_M3m2HpK - prec_mass_error, mz_M3m2HpK + prec_mass_error, inclusive = True).sum() > 0
+        valid_M3mH = peaks.between(mz_M3mH - prec_mass_error, mz_M3mH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pCl = peaks.between(mz_M3pCl - prec_mass_error, mz_M3pCl + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpNa = peaks.between(mz_M3m2HpNa - prec_mass_error, mz_M3m2HpNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpNapHCOOH = peaks.between(mz_M3m2HpNapHCOOH - prec_mass_error, mz_M3m2HpNapHCOOH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3m2HpK = peaks.between(mz_M3m2HpK - prec_mass_error, mz_M3m2HpK + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_Cl, valid_m2HpNa, valid_m2HpNapHCOOH, valid_m2HpK,
                     valid_M2mH, valid_M2pCl, valid_M2m2HpNa, valid_M2m2HpNapHCOOH, valid_M2m2HpK,
                     valid_M3mH, valid_M3pCl, valid_M3m2HpNa, valid_M3m2HpNapHCOOH, valid_M3m2HpK])
@@ -460,15 +460,15 @@ def Adnotator(params : dict, ion_mode : str):
         mz_NapCH3OH = 55.015985 + (mz - 1.007825)/2
         mz_KpCH3CN = 79.990257 + (mz - 1.007825)/2
         mz_KpCH3OH = 70.989923 + (mz - 1.007825)/2
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH])
     
     def Solo_M2pHpCH3CN(ion_idx):
@@ -484,15 +484,15 @@ def Adnotator(params : dict, ion_mode : str):
         mz_KpCH3CN = 79.990257 + (mz - 42.034374)/2
         mz_KpCH3OH = 70.989923 + (mz - 42.034374)/2
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
         
         return sum([valid_H, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH])
     
@@ -509,15 +509,15 @@ def Adnotator(params : dict, ion_mode : str):
         mz_KpCH3CN = 79.990257 + (mz - 33.034040)/2
         mz_KpCH3OH = 70.989923 + (mz - 33.034040)/2
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
         
         return sum([valid_H, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH])
     
@@ -535,15 +535,15 @@ def Adnotator(params : dict, ion_mode : str):
         mz_KpCH3CN = 79.990257 + (mz - 47.013304)/2
         mz_KpCH3OH = 70.989923 + (mz - 47.013304)/2
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
             
         return sum([valid_H, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH])
     
@@ -561,16 +561,16 @@ def Adnotator(params : dict, ion_mode : str):
         mz_KpCH3CN = 79.990257 + (mz - 18.034374)/2
         mz_KpCH3OH = 70.989923 + (mz - 18.034374)/2
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
             
         return sum([valid_H, valid_NH4, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH])
     
@@ -582,10 +582,10 @@ def Adnotator(params : dict, ion_mode : str):
         mz_Na = 22.98977 + (mz - 22.98977)/2
         mz_NapCH3CN = 64.016319 + (mz - 22.98977)/2
         mz_NapCH3OH = 55.015985 + (mz - 22.98977)/2
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_Na, valid_NapCH3CN, valid_NapCH3OH])
     
     def Solo_M2pNapCH3OH(ion_idx) : 
@@ -595,10 +595,10 @@ def Adnotator(params : dict, ion_mode : str):
         mz_Na = 22.98977 + (mz - 55.015985)/2
         mz_NapCH3CN = 64.016319 + (mz - 55.015985)/2
         mz_NapCH3OH = 55.015985 + (mz - 55.015985)/2
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_Na, valid_NapCH3CN, valid_NapCH3OH])
     
     def Solo_M2pNapCH3CN(ion_idx) : 
@@ -608,10 +608,10 @@ def Adnotator(params : dict, ion_mode : str):
         mz_Na = 22.98977 + (mz - 64.016319)/2
         mz_NapCH3CN = 64.016319 + (mz - 64.016319)/2
         mz_NapCH3OH = 55.015985 + (mz - 64.016319)/2
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_Na, valid_NapCH3CN, valid_NapCH3OH])
     
     def Solo_M2pK(ion_idx):
@@ -621,9 +621,9 @@ def Adnotator(params : dict, ion_mode : str):
         mz_Na = 22.98977 + (mz - 38.963708)/2
         mz_K = 38.963708 + (mz - 38.963708)/2
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_Na, valid_K])
     
     def Solo_M1pHpCH3CN(ion_idx):
@@ -633,9 +633,9 @@ def Adnotator(params : dict, ion_mode : str):
         mz_Na = 22.98977 + mz - 42.034374
         mz_HpCH3OH = 33.034040 + mz - 42.034374
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Na, valid_HpCH3OH])
     
@@ -645,8 +645,8 @@ def Adnotator(params : dict, ion_mode : str):
         mz_H = 1.007825 + mz - 33.034040
         mz_Na = 22.98977 + mz - 33.034040
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Na])
     
@@ -658,10 +658,10 @@ def Adnotator(params : dict, ion_mode : str):
         mz_HpCH3OH = 33.034040 + mz - 47.013304
         mz_HpCH3CN = 42.034374 + mz - 47.013304
      
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
     
         return sum([valid_H, valid_Na, valid_HpCH3OH, valid_HpCH3CN])
     
@@ -670,7 +670,7 @@ def Adnotator(params : dict, ion_mode : str):
         peaks = pd.Series(mgf_file[ion_idx].peaks.mz)
         mz_H = 1.007825 + mz - 22.989770
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum()
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum()
     
         return valid_H
     
@@ -680,9 +680,9 @@ def Adnotator(params : dict, ion_mode : str):
         mz_H = mz - 64.016319 + 1.007825
         mz_Na = mz - 64.016319 + 22.98977
         mz_NapCH3OH = mz - 64.016319 + 55.015985
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_Na, valid_NapCH3OH])
     
     def Solo_M1pNapCH3OH(ion_idx):
@@ -690,15 +690,15 @@ def Adnotator(params : dict, ion_mode : str):
         peaks = pd.Series(mgf_file[ion_idx].peaks.mz)
         mz_H = 1.007825 + mz - 55.015985
         mz_Na = 22.98977 + mz - 55.015985
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_Na])
     
     def Solo_M1pNH4(ion_idx):
         mz = mgf_file[ion_idx].get('pepmass')[0]
         peaks = pd.Series(mgf_file[ion_idx].peaks.mz)
         mz_H = 1.007825 + mz - 18.034374
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum()
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum()
         return valid_H
     
     def Solo_M1pNH4pCH3CN(ion_idx):
@@ -706,8 +706,8 @@ def Adnotator(params : dict, ion_mode : str):
         peaks = pd.Series(mgf_file[ion_idx].peaks.mz)
         mz_H = 1.007825 + mz - 59.060923
         mz_NH4 = 18.034374 + mz - 59.060923
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum() > 0
         return sum([valid_H, valid_NH4])
     
     def Solo_M1pK(ion_idx):
@@ -716,9 +716,9 @@ def Adnotator(params : dict, ion_mode : str):
         mz_H = 1.007825 + mz - 38.963708
         mz_NH4 =  18.034374 + mz - 38.963708
         mz_Na = 22.98977 + mz - 38.963708
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum()
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum()
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum()
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum()
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum()
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum()
         return sum([valid_H, valid_NH4, valid_Na])
     
     def Solo_M1pKpCH3OH(ion_idx):
@@ -728,10 +728,10 @@ def Adnotator(params : dict, ion_mode : str):
         mz_NH4 =  18.034374 + mz - 70.989923
         mz_Na = 22.98977 + mz - 70.989923
         mz_K = 38.963708 + mz - 70.989923
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum()
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum()
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum()
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum()
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum()
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum()
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum()
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum()
         return sum([valid_H, valid_NH4, valid_Na, valid_K])
     
     def Solo_M3pH(ion_idx):
@@ -758,27 +758,27 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M2pKpCH3CN = 79.990257 + (mz - 1.007825)*(2/3)
         mz_M2pKpCH3OH = 70.989923 + (mz - 1.007825)*(2/3)
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
             
         return sum([valid_H, valid_NH4, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH,
                     valid_M2pH, valid_M2pNH4, valid_M2pNa, valid_M2pK, valid_M2pHpCH3CN, valid_M2pHpCH3OH, valid_M2pNapCH3CN,
@@ -808,27 +808,27 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M2pKpCH3CN = 79.990257 + (mz - 18.034374)*(2/3)
         mz_M2pKpCH3OH = 70.989923 + (mz - 18.034374)*(2/3)
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
             
         return sum([valid_H, valid_NH4, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH,
                     valid_M2pH, valid_M2pNH4, valid_M2pNa, valid_M2pK, valid_M2pHpCH3CN, valid_M2pHpCH3OH, valid_M2pNapCH3CN,
@@ -859,27 +859,27 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M2pKpCH3CN = 79.990257 + (mz - 22.989770)*(2/3)
         mz_M2pKpCH3OH = 70.989923 + (mz - 22.989770)*(2/3)
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
             
         return sum([valid_H, valid_NH4, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH,
                     valid_M2pH, valid_M2pNH4, valid_M2pNa, valid_M2pK, valid_M2pHpCH3CN, valid_M2pHpCH3OH, valid_M2pNapCH3CN,
@@ -909,27 +909,27 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M2pKpCH3CN = 79.990257 + (mz - 38.963708)*(2/3)
         mz_M2pKpCH3OH = 70.989923 + (mz - 38.963708)*(2/3)
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
             
         return sum([valid_H, valid_NH4, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH,
                     valid_M2pH, valid_M2pNH4, valid_M2pNa, valid_M2pK, valid_M2pHpCH3CN, valid_M2pHpCH3OH, valid_M2pNapCH3CN,
@@ -969,38 +969,38 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M3pKpCH3CN = 79.990257 + (mz - 38.963708)*(3/4)
         mz_M3pKpCH3OH = 70.989923 + (mz - 38.963708)*(3/4)
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M3pH = peaks.between(mz_M3pH - prec_mass_error, mz_M3pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNH4 = peaks.between(mz_M3pNH4 - prec_mass_error, mz_M3pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNa = peaks.between(mz_M3pNa - prec_mass_error, mz_M3pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pK = peaks.between(mz_M3pK - prec_mass_error, mz_M3pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pHpCH3CN = peaks.between(mz_M3pHpCH3CN - prec_mass_error, mz_M3pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pHpCH3OH = peaks.between(mz_M3pHpCH3OH - prec_mass_error, mz_M3pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNapCH3CN = peaks.between(mz_M3pNapCH3CN - prec_mass_error, mz_M3pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNapCH3OH = peaks.between(mz_M3pNapCH3OH - prec_mass_error, mz_M3pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pKpCH3CN = peaks.between(mz_M3pKpCH3CN - prec_mass_error, mz_M3pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pKpCH3OH = peaks.between(mz_M3pKpCH3OH - prec_mass_error, mz_M3pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M3pH = peaks.between(mz_M3pH - prec_mass_error, mz_M3pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNH4 = peaks.between(mz_M3pNH4 - prec_mass_error, mz_M3pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNa = peaks.between(mz_M3pNa - prec_mass_error, mz_M3pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pK = peaks.between(mz_M3pK - prec_mass_error, mz_M3pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pHpCH3CN = peaks.between(mz_M3pHpCH3CN - prec_mass_error, mz_M3pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pHpCH3OH = peaks.between(mz_M3pHpCH3OH - prec_mass_error, mz_M3pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNapCH3CN = peaks.between(mz_M3pNapCH3CN - prec_mass_error, mz_M3pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNapCH3OH = peaks.between(mz_M3pNapCH3OH - prec_mass_error, mz_M3pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pKpCH3CN = peaks.between(mz_M3pKpCH3CN - prec_mass_error, mz_M3pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pKpCH3OH = peaks.between(mz_M3pKpCH3OH - prec_mass_error, mz_M3pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
             
         return sum([valid_H, valid_NH4, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH,
                     valid_M2pH, valid_M2pNH4, valid_M2pNa, valid_M2pK, valid_M2pHpCH3CN, valid_M2pHpCH3OH, valid_M2pNapCH3CN,
@@ -1042,38 +1042,38 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M3pKpCH3CN = 79.990257 + (mz - 1.007825)*(3/4)
         mz_M3pKpCH3OH = 70.989923 + (mz - 1.007825)*(3/4)
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M3pH = peaks.between(mz_M3pH - prec_mass_error, mz_M3pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNH4 = peaks.between(mz_M3pNH4 - prec_mass_error, mz_M3pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNa = peaks.between(mz_M3pNa - prec_mass_error, mz_M3pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pK = peaks.between(mz_M3pK - prec_mass_error, mz_M3pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pHpCH3CN = peaks.between(mz_M3pHpCH3CN - prec_mass_error, mz_M3pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pHpCH3OH = peaks.between(mz_M3pHpCH3OH - prec_mass_error, mz_M3pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNapCH3CN = peaks.between(mz_M3pNapCH3CN - prec_mass_error, mz_M3pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNapCH3OH = peaks.between(mz_M3pNapCH3OH - prec_mass_error, mz_M3pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pKpCH3CN = peaks.between(mz_M3pKpCH3CN - prec_mass_error, mz_M3pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pKpCH3OH = peaks.between(mz_M3pKpCH3OH - prec_mass_error, mz_M3pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M3pH = peaks.between(mz_M3pH - prec_mass_error, mz_M3pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNH4 = peaks.between(mz_M3pNH4 - prec_mass_error, mz_M3pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNa = peaks.between(mz_M3pNa - prec_mass_error, mz_M3pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pK = peaks.between(mz_M3pK - prec_mass_error, mz_M3pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pHpCH3CN = peaks.between(mz_M3pHpCH3CN - prec_mass_error, mz_M3pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pHpCH3OH = peaks.between(mz_M3pHpCH3OH - prec_mass_error, mz_M3pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNapCH3CN = peaks.between(mz_M3pNapCH3CN - prec_mass_error, mz_M3pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNapCH3OH = peaks.between(mz_M3pNapCH3OH - prec_mass_error, mz_M3pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pKpCH3CN = peaks.between(mz_M3pKpCH3CN - prec_mass_error, mz_M3pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pKpCH3OH = peaks.between(mz_M3pKpCH3OH - prec_mass_error, mz_M3pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
             
         return sum([valid_H, valid_NH4, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH,
                     valid_M2pH, valid_M2pNH4, valid_M2pNa, valid_M2pK, valid_M2pHpCH3CN, valid_M2pHpCH3OH, valid_M2pNapCH3CN,
@@ -1115,38 +1115,38 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M3pKpCH3CN = 79.990257 + (mz - 18.034374)*(3/4)
         mz_M3pKpCH3OH = 70.989923 + (mz - 18.034374)*(3/4)
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M3pH = peaks.between(mz_M3pH - prec_mass_error, mz_M3pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNH4 = peaks.between(mz_M3pNH4 - prec_mass_error, mz_M3pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNa = peaks.between(mz_M3pNa - prec_mass_error, mz_M3pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pK = peaks.between(mz_M3pK - prec_mass_error, mz_M3pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pHpCH3CN = peaks.between(mz_M3pHpCH3CN - prec_mass_error, mz_M3pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pHpCH3OH = peaks.between(mz_M3pHpCH3OH - prec_mass_error, mz_M3pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNapCH3CN = peaks.between(mz_M3pNapCH3CN - prec_mass_error, mz_M3pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNapCH3OH = peaks.between(mz_M3pNapCH3OH - prec_mass_error, mz_M3pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pKpCH3CN = peaks.between(mz_M3pKpCH3CN - prec_mass_error, mz_M3pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pKpCH3OH = peaks.between(mz_M3pKpCH3OH - prec_mass_error, mz_M3pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M3pH = peaks.between(mz_M3pH - prec_mass_error, mz_M3pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNH4 = peaks.between(mz_M3pNH4 - prec_mass_error, mz_M3pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNa = peaks.between(mz_M3pNa - prec_mass_error, mz_M3pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pK = peaks.between(mz_M3pK - prec_mass_error, mz_M3pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pHpCH3CN = peaks.between(mz_M3pHpCH3CN - prec_mass_error, mz_M3pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pHpCH3OH = peaks.between(mz_M3pHpCH3OH - prec_mass_error, mz_M3pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNapCH3CN = peaks.between(mz_M3pNapCH3CN - prec_mass_error, mz_M3pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNapCH3OH = peaks.between(mz_M3pNapCH3OH - prec_mass_error, mz_M3pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pKpCH3CN = peaks.between(mz_M3pKpCH3CN - prec_mass_error, mz_M3pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pKpCH3OH = peaks.between(mz_M3pKpCH3OH - prec_mass_error, mz_M3pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
             
         return sum([valid_H, valid_NH4, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH,
                     valid_M2pH, valid_M2pNH4, valid_M2pNa, valid_M2pK, valid_M2pHpCH3CN, valid_M2pHpCH3OH, valid_M2pNapCH3CN,
@@ -1188,38 +1188,38 @@ def Adnotator(params : dict, ion_mode : str):
         mz_M3pKpCH3CN = 79.990257 + (mz - 22.98977)*(3/4)
         mz_M3pKpCH3OH = 70.989923 + (mz - 22.98977)*(3/4)
     
-        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = True).sum() > 0
-        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = True).sum() > 0
-        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_H = peaks.between(mz_H - prec_mass_error, mz_H + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NH4 = peaks.between(mz_NH4 - prec_mass_error, mz_NH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_Na = peaks.between(mz_Na - prec_mass_error, mz_Na + prec_mass_error, inclusive = "both").sum() > 0
+        valid_K = peaks.between(mz_K - prec_mass_error, mz_K + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3CN = peaks.between(mz_HpCH3CN - prec_mass_error, mz_HpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_HpCH3OH = peaks.between(mz_HpCH3OH - prec_mass_error, mz_HpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3CN = peaks.between(mz_NapCH3CN - prec_mass_error, mz_NapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_NapCH3OH = peaks.between(mz_NapCH3OH - prec_mass_error, mz_NapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3CN = peaks.between(mz_KpCH3CN - prec_mass_error, mz_KpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_KpCH3OH = peaks.between(mz_KpCH3OH - prec_mass_error, mz_KpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M2pH = peaks.between(mz_M2pH - prec_mass_error, mz_M2pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNH4 = peaks.between(mz_M2pNH4 - prec_mass_error, mz_M2pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNa = peaks.between(mz_M2pNa - prec_mass_error, mz_M2pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pK = peaks.between(mz_M2pK - prec_mass_error, mz_M2pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3CN = peaks.between(mz_M2pHpCH3CN - prec_mass_error, mz_M2pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pHpCH3OH = peaks.between(mz_M2pHpCH3OH - prec_mass_error, mz_M2pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3CN = peaks.between(mz_M2pNapCH3CN - prec_mass_error, mz_M2pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pNapCH3OH = peaks.between(mz_M2pNapCH3OH - prec_mass_error, mz_M2pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3CN = peaks.between(mz_M2pKpCH3CN - prec_mass_error, mz_M2pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M2pKpCH3OH = peaks.between(mz_M2pKpCH3OH - prec_mass_error, mz_M2pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
     
-        valid_M3pH = peaks.between(mz_M3pH - prec_mass_error, mz_M3pH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNH4 = peaks.between(mz_M3pNH4 - prec_mass_error, mz_M3pNH4 + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNa = peaks.between(mz_M3pNa - prec_mass_error, mz_M3pNa + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pK = peaks.between(mz_M3pK - prec_mass_error, mz_M3pK + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pHpCH3CN = peaks.between(mz_M3pHpCH3CN - prec_mass_error, mz_M3pHpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pHpCH3OH = peaks.between(mz_M3pHpCH3OH - prec_mass_error, mz_M3pHpCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNapCH3CN = peaks.between(mz_M3pNapCH3CN - prec_mass_error, mz_M3pNapCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pNapCH3OH = peaks.between(mz_M3pNapCH3OH - prec_mass_error, mz_M3pNapCH3OH + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pKpCH3CN = peaks.between(mz_M3pKpCH3CN - prec_mass_error, mz_M3pKpCH3CN + prec_mass_error, inclusive = True).sum() > 0
-        valid_M3pKpCH3OH = peaks.between(mz_M3pKpCH3OH - prec_mass_error, mz_M3pKpCH3OH + prec_mass_error, inclusive = True).sum() > 0
+        valid_M3pH = peaks.between(mz_M3pH - prec_mass_error, mz_M3pH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNH4 = peaks.between(mz_M3pNH4 - prec_mass_error, mz_M3pNH4 + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNa = peaks.between(mz_M3pNa - prec_mass_error, mz_M3pNa + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pK = peaks.between(mz_M3pK - prec_mass_error, mz_M3pK + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pHpCH3CN = peaks.between(mz_M3pHpCH3CN - prec_mass_error, mz_M3pHpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pHpCH3OH = peaks.between(mz_M3pHpCH3OH - prec_mass_error, mz_M3pHpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNapCH3CN = peaks.between(mz_M3pNapCH3CN - prec_mass_error, mz_M3pNapCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pNapCH3OH = peaks.between(mz_M3pNapCH3OH - prec_mass_error, mz_M3pNapCH3OH + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pKpCH3CN = peaks.between(mz_M3pKpCH3CN - prec_mass_error, mz_M3pKpCH3CN + prec_mass_error, inclusive = "both").sum() > 0
+        valid_M3pKpCH3OH = peaks.between(mz_M3pKpCH3OH - prec_mass_error, mz_M3pKpCH3OH + prec_mass_error, inclusive = "both").sum() > 0
             
         return sum([valid_H, valid_NH4, valid_Na, valid_K, valid_HpCH3CN, valid_HpCH3OH, valid_NapCH3CN, valid_NapCH3OH, valid_KpCH3CN, valid_KpCH3OH,
                     valid_M2pH, valid_M2pNH4, valid_M2pNa, valid_M2pK, valid_M2pHpCH3CN, valid_M2pHpCH3OH, valid_M2pNapCH3CN,
@@ -1319,7 +1319,7 @@ def Adnotator(params : dict, ion_mode : str):
         rt_low = rt - rt_error
         rt_high = rt + rt_error
         sliced_table = input_table[input_table['rt'].between(rt_low,
-                                  rt_high, inclusive = True)].copy()
+                                  rt_high, inclusive = "both")].copy()
         return sliced_table.drop(ion_id)
     
     def Charge_filter(max_charge, input_table):
@@ -1387,10 +1387,10 @@ def Adnotator(params : dict, ion_mode : str):
             ion2_mz_low = ion2_mz - mass_error
             ion2_mz_high = ion2_mz + mass_error
             hit_count = coelution_table['mz'].between(ion2_mz_low, ion2_mz_high, 
-                                      inclusive = True).sum()
+                                      inclusive = "both").sum()
             if hit_count > 0 :
                 hit_ids = list(coelution_table.index[coelution_table['mz'].between(ion2_mz_low, 
-                                            ion2_mz_high, inclusive = True)])
+                                            ion2_mz_high, inclusive = "both")])
             else:
                 hit_ids = []
             hits.append(hit_count)
@@ -1888,7 +1888,8 @@ def Adnotator(params : dict, ion_mode : str):
                         tmp_points.append(full_merged_table.loc[cohort, "weighted_points"])
                     tmp_points = max(tmp_points)
                     house_table['points'] += tmp_points
-                    house_table['house'] += inert_cohorts
+                    for j in house_table.index:
+                        house_table.at[j, "house"] += inert_cohorts
                     house_table['ion_count'] += tmp_ion_count
                 for i in house_table.index:
                     house_table.at[i, "house"] = [house_table.loc[i, "house"]]
@@ -2106,7 +2107,7 @@ def Adnotator(params : dict, ion_mode : str):
             annotations = cross_annotations.loc[ion_id, sample_base_name].split('&')
             ion_idx = node_table.index[node_table["feature_id"] == ion_id][0]
             neutral_rt = node_table.loc[ion_idx, "rt"]
-            coelution_table = unnannotated_table[unnannotated_table['rt'].between(neutral_rt - rt_error,  neutral_rt + rt_error, inclusive = True)]
+            coelution_table = unnannotated_table[unnannotated_table['rt'].between(neutral_rt - rt_error,  neutral_rt + rt_error, inclusive = "both")]
             houses = cross_houses.loc[ion_id, sample_base_name].split('&')
             for k in range(len(houses)): 
                 house = houses[k]
@@ -2119,7 +2120,7 @@ def Adnotator(params : dict, ion_mode : str):
                                               adduct_table_secondary.loc[i, "Mol_multiplier"],
                                               adduct_table_secondary.loc[i, "Charge"])
                     tmp_group = adduct_table_secondary.loc[i, "Group"]
-                    tmp_table = coelution_table['mz'].between(tmp_mz - mass_error, tmp_mz + mass_error, inclusive = True)
+                    tmp_table = coelution_table['mz'].between(tmp_mz - mass_error, tmp_mz + mass_error, inclusive = "both")
                     if sum(tmp_table) != 0:
                         #print(ion_id)
                         tmp_table = coelution_table[tmp_table]
@@ -2575,7 +2576,7 @@ def Adnotator(params : dict, ion_mode : str):
                                                                                  'conflicted_score', 'same_group'])
                         affinity_table.sort_values(by = ['score_1', 'score_2', 'ion_count'], ascending = [False, True, False], inplace = True)
                         max_score = affinity_table['score_1'].max()
-                        if sum(affinity_table['score_1'].between(max_score - 0.05, max_score + 0.05, inclusive = True)) > 1 :
+                        if sum(affinity_table['score_1'].between(max_score - 0.05, max_score + 0.05, inclusive = "both")) > 1 :
                             resolved = False
                         migration_list.append(list(affinity_table['neutral']))
                         resolved_list.append(resolved)
@@ -2811,7 +2812,7 @@ def Adnotator(params : dict, ion_mode : str):
         """
         merged_neutral_table['compatibles'] = [None]*len(merged_neutral_table)
         for i in merged_neutral_table.index:
-            merged_neutral_table.loc[i, "compatibles"] = list()
+            merged_neutral_table.at[i, "compatibles"] = list()
         for neutral_1 in merged_neutral_table.index:
             annotations_1 = merged_neutral_table.loc[neutral_1, adduct_table_merged['Adduct_code']].dropna()
             annotations_1 = set(flatten(annotations_1))      
@@ -2964,7 +2965,7 @@ def Adnotator(params : dict, ion_mode : str):
         print("Exporting sample-wise tables...")
         full_csv = pd.read_csv(full_csv_file, index_col ="row ID")
         samples = full_csv.columns
-        samples = samples.str.replace(mzmine_suffix, "")
+        samples = samples.str.replace(mzmine_suffix, "", regex = False)
         full_csv.columns = samples
         samples = list(samples.drop(["row m/z", "row retention time"]))
         
@@ -3054,8 +3055,8 @@ def Adnotator(params : dict, ion_mode : str):
     
     input_files = pd.DataFrame()
     input_files['mgf_file'] = os.listdir(in_path_mgf)
-    input_files['base_name'] = input_files['mgf_file'].copy().str.replace(f'{ion_mode}_', "")
-    input_files['base_name'] = input_files['base_name'].str.replace('.mgf', '')
+    input_files['base_name'] = input_files['mgf_file'].copy().str.replace(f'{ion_mode}_', "", regex = False)
+    input_files['base_name'] = input_files['base_name'].str.replace('.mgf', '', regex = False)
     
     adduct_table_primary = pd.read_csv("./params/" + adduct_table_primary, sep = "\t")
     adduct_table_secondary = pd.read_csv("./params/" + adduct_table_secondary, sep = "\t")

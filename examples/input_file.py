@@ -12,6 +12,11 @@ from MolNotator.MolNet import MolNet
 
 wd = './working_directory'
 os.chdir(wd)
+
+for files in os.listdir(os.getcwd()):
+    if files not in ['databases','mzmine_out','params']:
+        raise Exception('Potential output files already exist! They need to be removed or moved outside the working directory.')
+        
 with open("./params/params.yaml") as info:
     params = yaml.load(info, Loader=yaml.FullLoader)
 
