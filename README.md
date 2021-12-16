@@ -93,10 +93,10 @@ Before installing MolNotator, make sure you have the following requirements inst
 These dependencies can be installed using the following command :
 
 ```bash
- pip install -U pandas==1.3.5 numpy matchms==0.6.2 tqdm pyyaml
+ pip install -U pandas numpy matchms==0.6.2 tqdm pyyaml
 ```
 ### Via PyPI
-We deploy the MolNotator package to [PyPi](https://test.pypi.org/project/MolNotator). You can install MolNotator as a python module with:
+We deploy the MolNotator package to [PyPi](https://pypi.org/project/MolNotator/). You can install MolNotator as a python module with:
 ```bash
  pip install MolNotator
 ```
