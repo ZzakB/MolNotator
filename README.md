@@ -208,5 +208,5 @@ Using MolNotator in your commercial or non-commercial project is generally possi
 If you are using MolNotator in your work, please cite :
 > The paper ref should go here 
 ## Contact / Maintainer
-Do you have feature requestes, found a bug or want to use MolNotator in your project ?  
+Do you have feature requests, found a bug or want to use MolNotator in your project ?  
 Please get in touch : `damien.olivier.jimenez@gmail.com`
