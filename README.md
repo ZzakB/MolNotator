@@ -14,7 +14,7 @@ The aim of the method is to help users of LCMS to pinpoint the molecules of inte
 ## Documentation
 
 **Note:** This README provides instructions for setup and using basic functions of MolNotator.
-For more details, see the [paper](https://linktopaper).
+For more details, see the [paper](https://doi.org/10.1101/2021.12.21.473622).
 
 MolNotator works within a user-defined project folder with a specific file structure. An example is given in the [examples](https://github.com/ZzakB/MolNotator/tree/main/examples) folder:
 ```
@@ -206,7 +206,7 @@ Using MolNotator in your commercial or non-commercial project is generally possi
 
 ## Citation Information
 If you are using MolNotator in your work, please cite :
-> The paper ref should go here 
+> [(1) Olivier-Jimenez, D.; Bouchouireb, Z.; Ollivier, S.; Mocquard, J.; Allard, P.-M.; Bernadat, G.; Chollet-Krugler, M.; Rondeau, D.; Boustie, J.; van der Hooft, J. J. J.; Wolfender, J.-L. From Mass Spectral Features to Molecules in Molecular Networks: A Novel Workflow for Untargeted Metabolomics, 2021. https://doi.org/10.1101/2021.12.21.473622.](https://doi.org/10.1101/2021.12.21.473622)
 ## Contact / Maintainer
 Do you have feature requests, found a bug or want to use MolNotator in your project ?  
 Please get in touch : `damien.olivier.jimenez@gmail.com`
