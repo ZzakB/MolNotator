@@ -234,6 +234,7 @@ def Dereplicator(params : dict, db_params : dict):
     from matchms.similarity import ModifiedCosine
 
     # Load parameters
+    data_modes= params['single_mode']
     mgf_file_neg= params['neg_mgf']
     mgf_file_pos= params['pos_mgf']
     neg_csv_file= params['neg_csv']
@@ -263,20 +264,62 @@ def Dereplicator(params : dict, db_params : dict):
     db_prefix= db_params['db_prefix']
 
     #Create folders and load tables
+    
     if not os.path.isdir(out_path_full) :
         os.mkdir(out_path_full)
-        edge_table = pd.read_csv(node_table_path + 'MIX_edges.csv', index_col = "Index")
-        node_table = pd.read_csv(node_table_path + 'MIX_nodes.csv', index_col = "Index",
-                                 dtype={'mz': 'float',
-                                        'rt': 'float',
-                                        'TIC' : 'float',
-                                        'charge' : 'int',
-                                        'mgf_index' : 'float',
-                                        'status' : 'str',
-                                        'Adnotation' : 'str',
-                                        'ion_mode' : 'str',
-                                        'feature_id' : 'float',
-                                        'cluster_id' : 'int'})
+    if ((os.path.isdir(out_path_full)) and (len(os.listdir(out_path_full)) == 0)):
+        if data_modes == "BOTH":
+            edge_table = pd.read_csv(node_table_path + 'MIX_edges.csv', index_col = "Index")
+            node_table = pd.read_csv(node_table_path + 'MIX_nodes.csv', index_col = "Index",
+                                     dtype={'mz': 'float',
+                                            'rt': 'float',
+                                            'TIC' : 'float',
+                                            'charge' : 'int',
+                                            'mgf_index' : 'float',
+                                            'status' : 'str',
+                                            'Adnotation' : 'str',
+                                            'ion_mode' : 'str',
+                                            'feature_id' : 'float',
+                                            'cluster_id' : 'int'})
+            
+        elif data_modes == "POS":
+            node_table_path = params['pos_out_3_1']
+            edge_table = pd.read_csv(node_table_path + 'POS_edges.csv', index_col = "Index")
+            node_table = pd.read_csv(node_table_path + 'POS_nodes.csv',
+                                     dtype={'feature_id' : 'float',
+                                            'mz': 'float',
+                                            'rt': 'float',
+                                            'TIC' : 'float',
+                                            'charge' : 'int',
+                                            'mgf_index' : 'float',
+                                            'rule_points' : 'int',
+                                            'status' : 'str',
+                                            'adduct_count' : 'str',
+                                            'Adnotation' : 'str'})
+            node_table['new_index'] = node_table["feature_id"].astype(int)        
+            node_table.set_index("new_index", inplace = True)
+            node_table['ion_mode'] = ['POS']*len(node_table)
+            node_table['status_universal'] = node_table['status'].copy()
+        elif data_modes == "NEG":
+            node_table_path = params['neg_out_3_1']
+            edge_table = pd.read_csv(node_table_path + 'NEG_edges.csv', index_col = "Index")
+            node_table = pd.read_csv(node_table_path + 'NEG_nodes.csv',
+                                     dtype={'feature_id' : 'float',
+                                            'mz': 'float',
+                                            'rt': 'float',
+                                            'TIC' : 'float',
+                                            'charge' : 'int',
+                                            'mgf_index' : 'float',
+                                            'rule_points' : 'int',
+                                            'status' : 'str',
+                                            'adduct_count' : 'str',
+                                            'Adnotation' : 'str'})
+            node_table['new_index'] = node_table["feature_id"].astype(int)        
+            node_table.set_index("new_index", inplace = True)
+            node_table['ion_mode'] = ['NEG']*len(node_table)
+            node_table['status_universal'] = node_table['status'].copy()
+        else:
+            raise Exception('single_mode parameter in the params file badly set, please use either "POS", "NEG" or "BOTH".')
     else:
         edge_table = pd.read_csv(out_path_full + 'MIX_edges.csv', index_col = "Index")
         node_table = pd.read_csv(out_path_full + 'MIX_nodes.csv', index_col = "Index",
@@ -306,12 +349,21 @@ def Dereplicator(params : dict, db_params : dict):
         Filter_fields_outer, filter_cols = Filter_choices_outer(db_params)
         
         # Load MGF files
-        print('Loading NEG MGF file...')
-        mgf_neg = list(load_from_mgf(input_mgf_neg_path + mgf_file_neg))
-        mgf_neg = [Spectrum_processing(s) for s in mgf_neg]
-        print('Loading POS MGF file...')
-        mgf_pos = list(load_from_mgf(input_mgf_pos_path + mgf_file_pos))
-        mgf_pos = [Spectrum_processing(s) for s in mgf_pos]
+        if data_modes == "BOTH":
+            print('Loading NEG MGF file...')
+            mgf_neg = list(load_from_mgf(input_mgf_neg_path + mgf_file_neg))
+            mgf_neg = [Spectrum_processing(s) for s in mgf_neg]
+            print('Loading POS MGF file...')
+            mgf_pos = list(load_from_mgf(input_mgf_pos_path + mgf_file_pos))
+            mgf_pos = [Spectrum_processing(s) for s in mgf_pos]
+        elif data_modes == "POS":
+            print('Loading POS MGF file...')
+            mgf_pos = list(load_from_mgf(input_mgf_pos_path + mgf_file_pos))
+            mgf_pos = [Spectrum_processing(s) for s in mgf_pos]
+        elif data_modes == "NEG":
+            print('Loading NEG MGF file...')
+            mgf_neg = list(load_from_mgf(input_mgf_neg_path + mgf_file_neg))
+            mgf_neg = [Spectrum_processing(s) for s in mgf_neg]
 
         # Load the database file
         print('Loading database file and extracting data...')
@@ -437,8 +489,8 @@ def Dereplicator(params : dict, db_params : dict):
             derep_table = derep_table.fillna('')
             for col in cols:
                 node_table.loc[i, col] = '|'.join(derep_table[col])
-            if db_adduct_field != None:
-                node_table.loc[i, db_adduct_field] = None
+#            if db_adduct_field != None:
+#                node_table.loc[i, db_adduct_field] = None
             
     #############################################################################
     elif db_type == "neutral": # If database is CSV to dereplicate molecule nodes

@@ -1,5 +1,6 @@
 ---
 # Global parameters
+single_mode : "BOTH" # If only one ion mode is used: "POS" or "NEG", if both modes : "BOTH"
 mzmine_suffix: ".mzXML Peak area" # Suffix present in MZmine's CSV output (first character must be a dot)
 pos_mgf: '200912_LDB_Thermo_POS.mgf' # MZmine MGF output for POS data
 pos_csv: '200912_LDB_Thermo_POS.csv' # MZmine CSV output for POS data

@@ -82,6 +82,53 @@ def MolNet(params : dict):
             sample_edge_table.to_csv(out_path + "MIX_" + sample + "_edges.csv", index_label = "Index")
         
         return
+
+    def Samplewise_export_single(csv_file, out_path, merged_edge_table, merged_node_table) : 
+        print("Exporting sample-wise tables...")
+        csv = pd.read_csv(csv_file, index_col ="row ID")
+        csv = Column_correction(csv)
+        csv.columns = csv.columns.str.replace(".mzXML Peak area", "", regex = False).str.replace('NEG_', '', regex = False).str.replace('POS_', '', regex = False)
+        csv.drop(["row m/z", "row retention time"], axis = 1, inplace = True)
+        samples = list(csv.columns)
+        samples.sort()        
+
+        nodes = merged_node_table['feature_id'][merged_node_table['status_universal'] != "neutral"].astype(int).tolist()
+        csv = csv.loc[nodes]
+        
+        for sample in tqdm(samples):
+            #sample = samples[0]
+            ion_ids = csv.index[csv[sample] > 0.0]
+            
+            #convert feature_ids to the new indexes
+            tmp_table = merged_node_table[merged_node_table['status_universal'] != "neutral"]
+            ion_idx= pd.Series(tmp_table.index, index = tmp_table['feature_id'])
+            ion_idx = list(ion_idx[ion_ids])
+        
+            # Get sample neutrals
+            neutral_edges = merged_edge_table.loc[merged_edge_table["Adnotation"].dropna().index]
+            kept_edges = [i for i in neutral_edges.index if neutral_edges.loc[i, "node_2"] in ion_idx]
+        
+            # Get ion edges
+            ion_edges = merged_edge_table[merged_edge_table['status'] != "add_edge"]
+            ion_edges = ion_edges[ion_edges['status'] != "add_edge"]
+            for i in ion_edges.index:
+                if ion_edges.loc[i, "node_1"] in ion_idx:
+                    if ion_edges.loc[i, "node_2"] in ion_idx:
+                        kept_edges.append(i)
+            kept_edges.sort()
+            sample_edges = merged_edge_table.loc[kept_edges]
+            sample_edges.sort_values('node_1', inplace = True)
+            sample_edges.reset_index(inplace = True, drop = True)
+            
+            kept_nodes = list(set(list(sample_edges['node_1']) + list(sample_edges['node_2'])))
+            kept_nodes.sort()
+            sample_nodes = merged_node_table.loc[kept_nodes].copy()
+            sample_nodes.drop(pd.Series(samples) + ".mzXML Peak area", axis = 1, inplace = True)
+            sample_nodes[sample] = merged_node_table[sample + ".mzXML Peak area"]
+            
+            sample_nodes.to_csv(out_path + "MIX_" + sample + "_nodes.csv", index_label = "Index")
+            sample_edges.to_csv(out_path + "MIX_" + sample + "_edges.csv", index_label = "Index")
+        return
     
     def Spectrum_processing(s):
         s = default_filters(s)
@@ -96,6 +143,7 @@ def MolNet(params : dict):
     from tqdm import tqdm
 
     # Load parameters
+    single_mode= params['single_mode']
     neg_csv_file= params['neg_csv']
     pos_csv_file= params['pos_csv']
     mgf_path_neg= params['neg_out_0']
@@ -111,11 +159,21 @@ def MolNet(params : dict):
     
     node_table = pd.read_csv(in_path + 'MIX_nodes.csv', index_col = "Index")
     edge_table = pd.read_csv(in_path + 'MIX_edges.csv', index_col = "Index")
-    mgf_pos = list(load_from_mgf(mgf_path_pos + mgf_file_pos))
-    mgf_neg = list(load_from_mgf(mgf_path_neg + mgf_file_neg))
-    
-    mgf_pos = [Spectrum_processing(s) for s in mgf_pos]
-    mgf_neg = [Spectrum_processing(s) for s in mgf_neg]
+
+    if single_mode == "BOTH":
+        mgf_pos = list(load_from_mgf(mgf_path_pos + mgf_file_pos))
+        mgf_neg = list(load_from_mgf(mgf_path_neg + mgf_file_neg))
+        mgf_pos = [Spectrum_processing(s) for s in mgf_pos]
+        mgf_neg = [Spectrum_processing(s) for s in mgf_neg]
+    elif single_mode == "POS":
+        mgf_pos = list(load_from_mgf(mgf_path_pos + mgf_file_pos))
+        mgf_pos = [Spectrum_processing(s) for s in mgf_pos]
+    elif single_mode == "NEG":
+        mgf_neg = list(load_from_mgf(mgf_path_neg + mgf_file_neg))
+        mgf_neg = [Spectrum_processing(s) for s in mgf_neg]
+    else:
+        raise Exception('single_mode parameter in the params file badly set, please use either "POS", "NEG" or "BOTH".')
+
     modified_cosine = ModifiedCosine(tolerance=mass_error)
     
     if not os.path.isdir(out_path_full) :
@@ -195,8 +253,12 @@ def MolNet(params : dict):
             edge_mode = node_1_mode
         rt_gap = abs(round(node_table.loc[node_1, 'rt'] - node_table.loc[node_2, 'rt'], 3))
         mz_gap = abs(round(node_table.loc[node_1, 'mz'] - node_table.loc[node_2, 'mz'], 4))
-        edge_table.loc[new_idx] = [node_1, node_2, matches, 0, 0.0, rt_gap, mz_gap,
-                      edge_mode + "_cosine_neutral_edge", "cosine_neutral_edge", None, None, cos, edge_mode, cos]
+        if single_mode == "BOTH":
+            edge_table.loc[new_idx] = [node_1, node_2, matches, 0, 0.0, rt_gap, mz_gap,
+                          edge_mode + "_cosine_neutral_edge", "cosine_neutral_edge", None, None, cos, edge_mode, cos]
+        else:
+            edge_table.loc[new_idx] = [node_1, node_2, matches, 0, 0.0, rt_gap, mz_gap,
+                          edge_mode + "_cosine_neutral_edge", None, None, cos, edge_mode, cos, "cosine_neutral_edge"]
     
     # Delete undesired edges
     edge_table = edge_table[edge_table['status'].str.contains('cosine_neutral_edge')]
@@ -209,8 +271,12 @@ def MolNet(params : dict):
     for neutral in tqdm(singletons):
         new_idx = max(edge_table.index) + 1 
         ion_mode = node_table.loc[neutral, "ion_mode"]
-        edge_table.loc[new_idx] = [neutral, neutral, 0, 0, 0.0, 0.0, 0.0,
-                      ion_mode + "_self_edge", "self_edge", None, None, 0.0, ion_mode, 0.0]
+        if single_mode == "BOTH":
+            edge_table.loc[new_idx] = [neutral, neutral, 0, 0, 0.0, 0.0, 0.0,
+                          ion_mode + "_self_edge", "self_edge", None, None, 0.0, ion_mode, 0.0]
+        else:
+            edge_table.loc[new_idx] = [neutral, neutral, 0, 0, 0.0, 0.0, 0.0,
+                          ion_mode + "_self_edge", None, None, 0.0, ion_mode, 0.0, "self_edge"]
     
     kept_nodes = list(set(list(edge_table['node_1']) + list(edge_table['node_2'])))
     kept_nodes.sort()
@@ -222,12 +288,24 @@ def MolNet(params : dict):
     edge_table.to_csv(out_path_full + "MIX_edges_families.csv", index_label = "Index")
     
     if params['c_export_samples'] : 
-        Samplewise_export(neg_csv_file = mgf_path_neg + neg_csv_file,
-                          pos_csv_file = mgf_path_pos + pos_csv_file,
-                          node_table_unaltered = in_path + 'MIX_nodes.csv',
-                          edge_table_unaltered = in_path + 'MIX_edges.csv',
-                          out_path = out_path_samples,
-                          merged_edge_table = edge_table,
-                          merged_node_table = node_table)
+        if single_mode == "BOTH":
+            Samplewise_export(neg_csv_file = mgf_path_neg + neg_csv_file,
+                              pos_csv_file = mgf_path_pos + pos_csv_file,
+                              node_table_unaltered = in_path + 'MIX_nodes.csv',
+                              edge_table_unaltered = in_path + 'MIX_edges.csv',
+                              out_path = out_path_samples,
+                              merged_edge_table = edge_table,
+                              merged_node_table = node_table)
+            
+        elif single_mode == "POS":
+            Samplewise_export_single(csv_file = mgf_path_pos + pos_csv_file,
+                                     out_path = out_path_samples,
+                                     merged_edge_table = edge_table,
+                                     merged_node_table = node_table)
+        elif single_mode == "NEG":
+            Samplewise_export_single(csv_file = mgf_path_neg + neg_csv_file,
+                                     out_path = out_path_samples,
+                                     merged_edge_table = edge_table,
+                                     merged_node_table = node_table)
 
     return

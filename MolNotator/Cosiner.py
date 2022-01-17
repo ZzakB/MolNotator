@@ -67,6 +67,53 @@ def Cosiner(params : dict):
             sample_nodes.to_csv(out_path + "MIX_" + sample + "_nodes.csv", index_label = "Index")
             sample_edges.to_csv(out_path + "MIX_" + sample + "_edges.csv", index_label = "Index")
         return
+
+    def Samplewise_export_single(csv_file, out_path, merged_edge_table, merged_node_table) : 
+        print("Exporting sample-wise tables...")
+        csv = pd.read_csv(csv_file, index_col ="row ID")
+        csv = Column_correction(csv)
+        csv.columns = csv.columns.str.replace(".mzXML Peak area", "", regex = False).str.replace('NEG_', '', regex = False).str.replace('POS_', '', regex = False)
+        csv.drop(["row m/z", "row retention time"], axis = 1, inplace = True)
+        samples = list(csv.columns)
+        samples.sort()        
+
+        nodes = merged_node_table['feature_id'][merged_node_table['status_universal'] != "neutral"].astype(int).tolist()
+        csv = csv.loc[nodes]
+        
+        for sample in tqdm(samples):
+            #sample = samples[0]
+            ion_ids = csv.index[csv[sample] > 0.0]
+            
+            #convert feature_ids to the new indexes
+            tmp_table = merged_node_table[merged_node_table['status_universal'] != "neutral"]
+            ion_idx= pd.Series(tmp_table.index, index = tmp_table['feature_id'])
+            ion_idx = list(ion_idx[ion_ids])
+        
+            # Get sample neutrals
+            neutral_edges = merged_edge_table.loc[merged_edge_table["Adnotation"].dropna().index]
+            kept_edges = [i for i in neutral_edges.index if neutral_edges.loc[i, "node_2"] in ion_idx]
+        
+            # Get ion edges
+            ion_edges = merged_edge_table[merged_edge_table['status'] != "add_edge"]
+            ion_edges = ion_edges[ion_edges['status'] != "add_edge"]
+            for i in ion_edges.index:
+                if ion_edges.loc[i, "node_1"] in ion_idx:
+                    if ion_edges.loc[i, "node_2"] in ion_idx:
+                        kept_edges.append(i)
+            kept_edges.sort()
+            sample_edges = merged_edge_table.loc[kept_edges]
+            sample_edges.sort_values('node_1', inplace = True)
+            sample_edges.reset_index(inplace = True, drop = True)
+            
+            kept_nodes = list(set(list(sample_edges['node_1']) + list(sample_edges['node_2'])))
+            kept_nodes.sort()
+            sample_nodes = merged_node_table.loc[kept_nodes].copy()
+            sample_nodes.drop(pd.Series(samples) + ".mzXML Peak area", axis = 1, inplace = True)
+            sample_nodes[sample] = merged_node_table[sample + ".mzXML Peak area"]
+            
+            sample_nodes.to_csv(out_path + "MIX_" + sample + "_nodes.csv", index_label = "Index")
+            sample_edges.to_csv(out_path + "MIX_" + sample + "_edges.csv", index_label = "Index")
+        return
     
     def Spectrum_purge(ion_mode, mgf_file) :
         singletons = node_table.index[node_table['status'] == ion_mode.lower() + "_singleton"].tolist()
@@ -94,6 +141,7 @@ def Cosiner(params : dict):
         return s
     
     # Load parameters
+    single_mode= params['single_mode']
     mzmine_path_neg= params['neg_out_0']
     mzmine_path_pos= params['pos_out_0']
     neg_csv_file= params['neg_csv']
@@ -114,20 +162,98 @@ def Cosiner(params : dict):
     # Load files
     node_table = pd.read_csv(in_path + "MIX_nodes.csv", index_col = "Index")
     edge_table  = pd.read_csv(in_path + "MIX_edges.csv", index_col = "Index")
-    neg_mgf = list(load_from_mgf(mzmine_path_neg + neg_mgf_file))
-    pos_mgf = list(load_from_mgf(mzmine_path_pos + pos_mgf_file))
-    neg_mgf = [Spectrum_processing(s) for s in neg_mgf]
-    pos_mgf = [Spectrum_processing(s) for s in pos_mgf]
+    
+    if single_mode == "BOTH":
+        neg_mgf = list(load_from_mgf(mzmine_path_neg + neg_mgf_file))
+        pos_mgf = list(load_from_mgf(mzmine_path_pos + pos_mgf_file))
+        neg_mgf = [Spectrum_processing(s) for s in neg_mgf]
+        pos_mgf = [Spectrum_processing(s) for s in pos_mgf]
+    elif single_mode == "POS":
+        pos_mgf = list(load_from_mgf(mzmine_path_pos + pos_mgf_file))
+        pos_mgf = [Spectrum_processing(s) for s in pos_mgf]
+        node_table['status'] = "pos_" + node_table['status']
+        edge_table['ion_mode'] = ["POS"]*len(edge_table)
+    elif single_mode == "NEG":
+        neg_mgf = list(load_from_mgf(mzmine_path_neg + neg_mgf_file))
+        neg_mgf = [Spectrum_processing(s) for s in neg_mgf]
+        node_table['status'] = "neg_" + node_table['status']
+        edge_table['ion_mode'] = ["NEG"]*len(edge_table)
+    else:
+        raise Exception('single_mode parameter in the params file badly set, please use either "POS", "NEG" or "BOTH".')
     
     
     # Make a Series with MGF indexes as data and feature IDs as indexes
-    neg_mgf_data = pd.Series(dtype = int)
-    for i in range(len(neg_mgf)):
-        neg_mgf_data.loc[int(neg_mgf[i].get("feature_id"))] = i
+    if single_mode == "BOTH":
+        neg_mgf_data = pd.Series(dtype = int)
+        for i in range(len(neg_mgf)):
+            neg_mgf_data.loc[int(neg_mgf[i].get("feature_id"))] = i
+        pos_mgf_data = pd.Series(dtype = int)
+        for i in range(len(pos_mgf)):
+            pos_mgf_data.loc[int(pos_mgf[i].get("feature_id"))] = i
+    elif single_mode == "POS":
+        pos_mgf_data = pd.Series(dtype = int)
+        for i in range(len(pos_mgf)):
+            pos_mgf_data.loc[int(pos_mgf[i].get("feature_id"))] = i
+    elif single_mode == "NEG":
+        neg_mgf_data = pd.Series(dtype = int)
+        for i in range(len(neg_mgf)):
+            neg_mgf_data.loc[int(neg_mgf[i].get("feature_id"))] = i
+
+
+    # If single mode, produce molecular clusters as these were not produced
+    # without the Mode Merger step
+    if single_mode != "BOTH":
+        node_pool = list(node_table.index)
+        singletons = list(edge_table["node_1"][edge_table['status'] == "self_edge"])
+        node_pool = list(set(node_pool) - set(singletons))
+        cluster_list = []
+        cluster_size_list = []
+        total_nodes = len(node_pool)
+        while len(node_pool) > 0:
+            new_cluster = [node_pool[0]]
+            cluster_size = 0
+            perc = round((1-(len(node_pool)/total_nodes))*100,1)
+            sys.stdout.write("\rDefining new clusters : {0}%".format(perc))
+            sys.stdout.flush()
+            while cluster_size != len(new_cluster):
+                cluster_size = len(new_cluster)
+                tmp_idx = []
+                for i in new_cluster:
+                    tmp_idx += list(edge_table.index[edge_table['node_1'] == i])
+                    tmp_idx += list(edge_table.index[edge_table['node_2'] == i])
+                new_cluster += list(edge_table.loc[tmp_idx, 'node_1'])
+                new_cluster += list(edge_table.loc[tmp_idx, 'node_2'])
+                new_cluster = list(set(new_cluster))
+            new_cluster.sort()
+            node_pool = list(set(node_pool) - set(new_cluster))
+            cluster_size_list.append(len(new_cluster))
+            cluster_list.append('|'.join(list(map(str, new_cluster))))
     
-    pos_mgf_data = pd.Series(dtype = int)
-    for i in range(len(pos_mgf)):
-        pos_mgf_data.loc[int(pos_mgf[i].get("feature_id"))] = i
+        cluster_table= pd.DataFrame()
+        cluster_table['cluster'] = cluster_list
+        cluster_table['cluster_size'] = cluster_size_list
+        cluster_table.sort_values('cluster_size', ascending = False, inplace = True)
+        cluster_table.reset_index(drop = True, inplace = True)
+    
+        # Identify molecular clusters
+        cluster_molecular = list()
+        for i in cluster_table.index:
+            node_list = cluster_table.loc[i, "cluster"].split('|')
+            node_list = list(map(int, node_list))
+            tmp_table_1 = node_table.loc[node_list,:]
+            if sum(tmp_table_1['status'] == "neutral") > 0 :
+                cluster_molecular.append(True)
+            else:
+                cluster_molecular.append(False)
+        cluster_table["molecular_cluster"] = cluster_molecular
+    
+        node_table['cluster_id'] = [-1]*len(node_table)
+        print('Assigning new cluster indexes...')
+        for i in tqdm(cluster_table.index):
+            node_list = list(map(int, cluster_table.loc[i, 'cluster'].split('|')))
+            for j in node_list :
+                node_table.loc[j, 'cluster_id'] = i
+
     
     # List the molecular clusters (clusters with at least one neutral node)
     cluster_list = []
@@ -268,8 +394,12 @@ def Cosiner(params : dict):
         ion_mode = node_table.loc[cosined_ion, "ion_mode"]
         n_matches = cosine_table.loc[i, "matches"]
         new_edge = max(edge_table.index) + 1
-        edge_table.loc[new_edge] = [linked_ion, cosined_ion, n_matches, 0, 0, rt_gap, mz_gap,
-                      ion_mode.lower() + "_singcos_edge", "singcos_edge", None, None, cosine_score, ion_mode, cosine_score]
+        if single_mode == "BOTH":
+            edge_table.loc[new_edge] = [linked_ion, cosined_ion, n_matches, 0, 0, rt_gap, mz_gap,
+                          ion_mode.lower() + "_singcos_edge", "singcos_edge", None, None, cosine_score, ion_mode, cosine_score]
+        else:
+            edge_table.loc[new_edge] = [linked_ion, cosined_ion, n_matches, 0, 0, rt_gap, mz_gap,
+                          "singcos_edge", None, None, cosine_score, single_mode, cosine_score]            
     edge_table.reset_index(drop = True, inplace = True)
     
     neutral_idx = list(node_table.index[node_table['status'].str.contains('neutral')])
@@ -319,23 +449,41 @@ def Cosiner(params : dict):
             mz_gap = edge[4]
             tmp_ion_mode = edge[5]
             new_idx = max(edge_table.index) + 1
-            edge_table.loc[new_idx] = [node_1, node_2, 0, 0, 0, rt_gap, mz_gap,
-                          tmp_ion_mode + "_cos_edge", "cos_edge", None, None, cos, tmp_ion_mode.upper(),
-                          cos]
+
+            if single_mode == "BOTH":
+                edge_table.loc[new_idx] = [node_1, node_2, 0, 0, 0, rt_gap, mz_gap,
+                              tmp_ion_mode + "_cos_edge", "cos_edge", None, None, cos, tmp_ion_mode.upper(),
+                              cos]
+            else:
+                edge_table.loc[new_edge] = [node_1, node_2, 0, 0, 0, rt_gap, mz_gap,
+                              "cos_edge", None, None, cos, single_mode, cos]    
+
     
     # Produce cosine clusters between singletons and non-molecular clustered precursors/fragments
     non_molecular_clusters = list(set(node_table['cluster_id'].unique()) - set(cluster_list))
     non_molecular_clusters.sort()
     unclustered_ions = [i for i in node_table.index if node_table.loc[i, "cluster_id"] in non_molecular_clusters]
-    remains_ions_neg = list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'neg_singleton'])
-    remains_ions_neg +=  list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'neg_precursor'])
-    remains_ions_neg_mgf = [node_table.loc[i, "mgf_index"] for i in remains_ions_neg] 
-    remains_ions_neg_mgf = list(map(int, remains_ions_neg_mgf))
-
-    remains_ions_pos = list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'pos_singleton'])
-    remains_ions_pos +=  list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'pos_precursor'])
-    remains_ions_pos_mgf = [node_table.loc[i, "mgf_index"] for i in remains_ions_pos] 
-    remains_ions_pos_mgf = list(map(int, remains_ions_pos_mgf))
+    
+    if single_mode == "BOTH":
+        remains_ions_neg = list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'neg_singleton'])
+        remains_ions_neg +=  list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'neg_precursor'])
+        remains_ions_neg_mgf = [node_table.loc[i, "mgf_index"] for i in remains_ions_neg] 
+        remains_ions_neg_mgf = list(map(int, remains_ions_neg_mgf))
+    
+        remains_ions_pos = list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'pos_singleton'])
+        remains_ions_pos +=  list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'pos_precursor'])
+        remains_ions_pos_mgf = [node_table.loc[i, "mgf_index"] for i in remains_ions_pos] 
+        remains_ions_pos_mgf = list(map(int, remains_ions_pos_mgf))
+    elif single_mode == "POS":
+        remains_ions_pos = list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'pos_singleton'])
+        remains_ions_pos +=  list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'pos_precursor'])
+        remains_ions_pos_mgf = [node_table.loc[i, "mgf_index"] for i in remains_ions_pos] 
+        remains_ions_pos_mgf = list(map(int, remains_ions_pos_mgf))
+    elif single_mode == "NEG":
+        remains_ions_neg = list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'neg_singleton'])
+        remains_ions_neg +=  list(node_table.loc[unclustered_ions].index[node_table.loc[unclustered_ions]['status'] == 'neg_precursor'])
+        remains_ions_neg_mgf = [node_table.loc[i, "mgf_index"] for i in remains_ions_neg] 
+        remains_ions_neg_mgf = list(map(int, remains_ions_neg_mgf))        
     
     # Process NEG data:
     singleton_clusters = list()
@@ -424,9 +572,13 @@ def Cosiner(params : dict):
         tmp_mode = singleton_clusters.loc[i, "ion_mode"]
         rt_gap = abs(node_table.loc[node_1, 'rt'] - node_table.loc[node_2, 'rt'])
         mz_gap = abs(node_table.loc[node_1, 'mz'] - node_table.loc[node_2, 'mz'])
-        edge_table.loc[new_edge] = [node_1, node_2, tmp_matches, 0, 0.0, rt_gap,
-                      mz_gap, tmp_mode.lower() + '_singcos_edge', 'cosine_edge',
-                      None, None, tmp_cos, tmp_mode, tmp_cos]
+        if single_mode == "BOTH":
+            edge_table.loc[new_edge] = [node_1, node_2, tmp_matches, 0, 0.0, rt_gap,
+                          mz_gap, tmp_mode.lower() + '_singcos_edge', 'cosine_edge',
+                          None, None, tmp_cos, tmp_mode, tmp_cos]
+        else:
+            edge_table.loc[new_edge] = [node_1, node_2, tmp_matches, 0, 0.0, rt_gap,
+                          mz_gap, 'singcos_edge', None, None, tmp_cos, tmp_mode, tmp_cos]
 
     # Report the new data to the node table:
     print('Reporting cosined singletons to node table...')
@@ -437,10 +589,63 @@ def Cosiner(params : dict):
             node_table.loc[j, "status"] = tmp_mode.lower() + "_cossingleton"
             node_table.loc[j, "status_universal"] = "cossingleton"
             node_table.loc[j, "cluster_id"] = i
+            
+    # If in singlemode, create a status universal column for the edge table:
+    if single_mode == "POS":
+        edge_table['status_universal'] = edge_table['status'].copy()
+        edge_table['status'] = "pos_" + edge_table['status']
+    elif single_mode == "NEG":
+        edge_table['status_universal'] = edge_table['status'].copy()
+        edge_table['status'] = "neg_" + edge_table['status']
+
+    # Set samples in node table if single_mode:
+    if single_mode != "BOTH" :
+        if single_mode == "POS" : mzmine_csv = params['pos_out_0'] + params['pos_csv']
+        elif single_mode == "NEG" : mzmine_csv = params['neg_out_0'] + params['neg_csv']
+        mzmine_csv = pd.read_csv(mzmine_csv, index_col = "row ID")
+        mzmine_csv.drop(['row m/z', 'row retention time'], axis = 1, inplace = True)
+        mzmine_csv.columns = pd.Series(mzmine_csv.columns).str.replace('NEG_', '', regex = False).str.replace('POS_', '', regex = False)
+        ions_idx = node_table[node_table['status_universal'] != "neutral"].index        
+
+    
+        print("Adding sample intensities to ions...")
+        for sample in tqdm(mzmine_csv.columns):
+            node_table['sample'] = [0.0]*len(node_table)
+            for ion in ions_idx:
+                node_table.loc[ion, sample] = mzmine_csv.loc[ion, sample]
+
+        # Add samples to neutrals
+        neutrals_idx = node_table[node_table['status_universal'] == "neutral"].index
+        print("Adding sample intensities to neutrals...")
+        for sample in tqdm(mzmine_csv.columns):
+            for neutral in neutrals_idx:
+                tmp_ions = list(edge_table['node_2'][edge_table['node_1'] == neutral])
+                tmp_int = 0.0
+                for ion in tmp_ions:
+                    tmp_int += mzmine_csv.loc[ion, sample]
+                node_table.loc[neutral, sample] = tmp_int
+
+    # Delete singleton self-edges for cossined singletons, only when in singlemode:
+    if single_mode != "BOTH":
+        print('Dropping singleton edges in single mode...')
+        cossingletons = node_table.index[node_table['status_universal'] == "cossingleton"]
+        drop_list = []
+        for i in tqdm(cossingletons):
+            edges_1 = set(edge_table.index[edge_table["node_1"] == i])
+            edges_2 = set(edge_table.index[edge_table["node_2"] == i])
+            drop_list += list(edges_1.intersection(edges_2))
+        edge_table.drop(drop_list, inplace = True)
+        edge_table.reset_index(inplace = True, drop = True)
+
     
     if purge_empty_spectra :
-        Spectrum_purge(ion_mode = "POS", mgf_file = pos_mgf)
-        Spectrum_purge(ion_mode = "NEG", mgf_file = neg_mgf)
+        if single_mode == "BOTH":
+            Spectrum_purge(ion_mode = "POS", mgf_file = pos_mgf)
+            Spectrum_purge(ion_mode = "NEG", mgf_file = neg_mgf)
+        elif single_mode == "POS":
+            Spectrum_purge(ion_mode = "POS", mgf_file = pos_mgf)
+        elif single_mode == "NEG":
+            Spectrum_purge(ion_mode = "NEG", mgf_file = neg_mgf)
         
     node_table['mz'] = node_table['mz'].round(4)
     node_table['rt'] =  node_table['rt'].round(3)
@@ -457,9 +662,20 @@ def Cosiner(params : dict):
     edge_table.to_csv(out_path_full + 'MIX_edges.csv', index_label = "Index")
     
     if params['c_export_samples'] : 
-        Samplewise_export(neg_csv_file = mzmine_path_neg + neg_csv_file,
-                          pos_csv_file = mzmine_path_pos + pos_csv_file,
-                          out_path = out_path_samples,
-                          merged_edge_table = edge_table,
-                          merged_node_table = node_table)
+        if single_mode == "BOTH":
+            Samplewise_export(neg_csv_file = mzmine_path_neg + neg_csv_file,
+                              pos_csv_file = mzmine_path_pos + pos_csv_file,
+                              out_path = out_path_samples,
+                              merged_edge_table = edge_table,
+                              merged_node_table = node_table)
+        elif single_mode == "POS":
+            Samplewise_export_single(csv_file = mzmine_path_pos + pos_csv_file,
+                                     out_path = out_path_samples,
+                                     merged_edge_table = edge_table,
+                                     merged_node_table = node_table)
+        elif single_mode == "NEG":
+            Samplewise_export_single(csv_file = mzmine_path_neg + neg_csv_file,
+                                     out_path = out_path_samples,
+                                     merged_edge_table = edge_table,
+                                     merged_node_table = node_table)
     return
