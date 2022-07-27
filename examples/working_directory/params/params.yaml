@@ -1,12 +1,17 @@
 ---
 # Global parameters
-single_mode : "BOTH" # If only one ion mode is used: "POS" or "NEG", if both modes : "BOTH"
-mzmine_suffix: ".mzXML Peak area" # Suffix present in MZmine's CSV output (first character must be a dot)
-pos_mgf: '200912_LDB_Thermo_POS.mgf' # MZmine MGF output for POS data
-pos_csv: '200912_LDB_Thermo_POS.csv' # MZmine CSV output for POS data
-neg_mgf: '200909_LDB_Thermo_NEG.mgf' # MZmine MGF output for NEG data
-neg_csv: '200909_LDB_Thermo_NEG.csv' # MZmine CSV output for NEG data
-mzmine_out: './mzmine_out/' #Folder in which the MZmine outputs are located
+process_mode : "BOTH" # If only one ion mode is used: "POS" or "NEG", if both modes : "BOTH"
+col_suffix: ".mzXML Peak area" # CSV file suffix for samples, typically "peak area.mzML".
+index_col: 'feature_id' # Spectrum ID in spectrum and CSV files (must be the same, if not, change in the CSV file)
+pos_mgf: '200912_LDB_Thermo_POS.mgf' # Input MGF output for POS data
+pos_csv: '200912_LDB_Thermo_POS.csv' # Input CSV output for POS data
+neg_mgf: '200909_LDB_Thermo_NEG.mgf' # Input MGF output for NEG data
+neg_csv: '200909_LDB_Thermo_NEG.csv' # Input CSV output for NEG data
+rt_field: 'rtinseconds' # rt field to be used from the spectrum file
+mz_field: 'pepmass' # mz field to be used from the spectrum file
+charge_field: 'charge' # charge field in the spectrum file
+rt_unit: 's' # 's' or 'm', seconds or minutes.
+input_dir: './input_files/' #Folder in which the Input are located
 neg_out_0: './0_neg_filtered/' # Duplicate filter NEG output folder
 pos_out_0: './0_pos_filtered/' # Duplicate filter POS output folder
 pos_out_1: './1_pos_sliced_mgf/' # MGF slicer POS output folder
@@ -30,6 +35,7 @@ mix_out_7_2 : './7_simplified_samples/' # MolNet output folder for each sample
 # Duplicate filter parameters
 df_mass_error: 0.002 # Mass error in Da
 df_rt_error: 10 # RT error in seconds
+df_cos_threshold: 0.8 # cosine threshold used to confirm duplicate ions
 df_skip: False # True/False to skip duplicate filter
 
 # Fragnotator parameters
@@ -55,6 +61,7 @@ an_bnr_pos: ["[M+H]+", "[M+Na]+", "[M+NH4]+", "[2M+H]+", "[2M+Na]+", "[2M+NH4]+"
 an_export_samples: False # True/False, whether or not to export results for each sample
 
 # Mode merger parameters
+mm_skip: False # Whether or not to skip mode merger, for single mode useage
 mm_mass_error: 0.003 # Mass error in Da
 mm_prec_mass_error: 0.1 # Mass error in Da for precursor m/z values
 mm_rt_error: 15 # RT error in seconds
