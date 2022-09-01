@@ -1,10 +1,10 @@
-from ophiomandra.others.species_validators import *
 import os
 import pandas as pd
 from pandas.core.common import flatten
 import sys
 from tqdm import tqdm
 from matchms.importing import load_from_mgf
+from MolNotator.others.species_validators import *
 from MolNotator.others.global_functions import *
 
 
