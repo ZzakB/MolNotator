@@ -5,8 +5,8 @@ import sys
 from tqdm import tqdm
 from matchms.importing import load_from_mgf
 from matchms.similarity import ModifiedCosine
-from MolNotator.MolNotator.others.global_functions import *
-from MolNotator.MolNotator.others.rt_slicer import rt_slicer
+from MolNotator.others.global_functions import *
+from MolNotator.others.rt_slicer import rt_slicer
 
 def adnotator(params : dict, ion_mode : str):
     """
