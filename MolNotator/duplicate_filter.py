@@ -115,6 +115,3 @@ def duplicate_filter(params : dict, ion_mode : str):
     print('Export finished.')
     print(f'{len(dropped_ions)} ions removed out of {len(spectrum_list)} ({perc}%)')
     return
-
-if __name__ == '__main__':
-    duplicate_filter()
