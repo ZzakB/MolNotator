@@ -4,8 +4,8 @@ from pandas.core.common import flatten
 import sys
 from tqdm import tqdm
 from matchms.importing import load_from_mgf
-from MolNotator.others.species_validators import *
-from MolNotator.others.global_functions import *
+from MolNotator.MolNotator.others.species_validators import *
+from MolNotator.MolNotator.others.global_functions import *
 
 
 def mode_merger(params : dict):
