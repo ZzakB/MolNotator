@@ -5,8 +5,8 @@ from matchms.importing import load_from_mgf
 from matchms.filtering import default_filters
 from matchms.exporting import save_as_mgf
 from pandas.core.common import flatten
-from MolNotator.others.spectrum_extractor import spectrum_extractor
-from MolNotator.others.duplicate_finder import duplicate_finder
+from MolNotator.MolNotator.others.spectrum_extractor import spectrum_extractor
+from MolNotator.MolNotator.others.duplicate_finder import duplicate_finder
 
 
 def Spectrum_processing(s):
