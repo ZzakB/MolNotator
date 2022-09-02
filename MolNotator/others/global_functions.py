@@ -6,7 +6,7 @@ from pandas.core.common import flatten
 from matchms.importing import load_from_mgf
 from matchms.similarity import ModifiedCosine
 from matchms.filtering import default_filters
-from MolNotator.others.species_validators import *
+from MolNotator.MolNotator.others.species_validators import *
 from tqdm import tqdm
 import numpy as np
 
