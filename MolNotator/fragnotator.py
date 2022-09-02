@@ -2,10 +2,10 @@
 import os
 import pandas as pd
 from matchms.importing import load_from_mgf
-from MolNotator.others.spectrum_extractor import spectrum_extractor
-from MolNotator.others.fragnotator_edge_table import fragnotator_edge_table
-from MolNotator.others.singleton_edges import singleton_edges
-from MolNotator.others.reindexer import reindexer
+from MolNotator.MolNotator.others.spectrum_extractor import spectrum_extractor
+from MolNotator.MolNotator.others.fragnotator_edge_table import fragnotator_edge_table
+from MolNotator.MolNotator.others.singleton_edges import singleton_edges
+from MolNotator.MolNotator.others.reindexer import reindexer
 
 def fragnotator(params : dict, ion_mode : str):
     """
