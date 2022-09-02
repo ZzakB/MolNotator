@@ -1,7 +1,7 @@
 """fragnotator_edge_table.py - fragnotator_edge_table module for fragnotator"""
 import pandas as pd
 from tqdm import tqdm
-from MolNotator.MolNotator.others.rt_slicer import rt_slicer
+from MolNotator.others.rt_slicer import rt_slicer
 
 def fragnotator_edge_table(node_table, mgf_file, params):
     """
