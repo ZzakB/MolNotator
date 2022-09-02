@@ -5,7 +5,7 @@ from tqdm import tqdm
 from matchms.importing import load_from_mgf
 from matchms.filtering import default_filters
 from matchms.similarity import ModifiedCosine
-from MolNotator.others.global_functions import *
+from MolNotator.MolNotator.others.global_functions import *
 
 def dereplicator(params : dict, db_params : dict):
 
