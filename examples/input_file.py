@@ -9,7 +9,7 @@ from MolNotator.MolNotator.dereplicator import dereplicator
 from MolNotator.MolNotator.cosiner import cosiner
 from MolNotator.MolNotator.molnet import molnet
 
-wd = 'D:/Dropbox/0_Atronerium/Python/molnotator_test_2'
+wd = 'set/path/'
 os.chdir(wd)
 
 for files in os.listdir(os.getcwd()):
