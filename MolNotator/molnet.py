@@ -5,7 +5,7 @@ from matchms.filtering import default_filters
 from matchms.similarity import ModifiedCosine
 import sys
 from tqdm import tqdm
-from MolNotator.MolNotator.others.global_functions import *
+from MolNotator.others.global_functions import *
 
 def molnet(params : dict):
 
