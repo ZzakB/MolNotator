@@ -5,7 +5,7 @@ from matchms.importing import load_from_mgf
 from matchms.filtering import default_filters
 from matchms.similarity import ModifiedCosine
 from tqdm import tqdm
-from MolNotator.others.global_functions import *
+rom MolNotator.MolNotator.others.global_functions import *
 
 def cosiner(params : dict):
     
