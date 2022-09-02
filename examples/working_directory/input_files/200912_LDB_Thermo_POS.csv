@@ -1,4 +1,4 @@
-row ID,row m/z,row retention time,POS_004_Acetylportentol.mzXML Peak area,POS_007_12_Desoxydiacetylpyxinol.mzXML Peak area,POS_008_12_Desoxypyxinol.mzXML Peak area,POS_002_2_Hydroxy_4_6_dimethoxyacetophenone.mzXML Peak area,POS_011_Bourgeanic_acid.mzXML Peak area,POS_012_Caperatic_acid.mzXML Peak area
+feature_id,row m/z,row retention time,POS_004_Acetylportentol.mzXML Peak area,POS_007_12_Desoxydiacetylpyxinol.mzXML Peak area,POS_008_12_Desoxypyxinol.mzXML Peak area,POS_002_2_Hydroxy_4_6_dimethoxyacetophenone.mzXML Peak area,POS_011_Bourgeanic_acid.mzXML Peak area,POS_012_Caperatic_acid.mzXML Peak area
 1,758.2228016,7.762328571,804427827.2,553307429.9,7576323.857000001,0.0,0.0,0.0
 2,274.27412030000005,3.254916667,0.0,105207187.0,107861267.0,95621919.01,0.0,0.0
 3,184.985714,8.417435000000001,0.0,49623329.68,44988623.12,44828960.84,0.0,0.0
