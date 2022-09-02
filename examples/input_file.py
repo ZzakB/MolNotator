@@ -1,13 +1,13 @@
 import os 
 import yaml
-from MolNotator.duplicate_filter import duplicate_filter
-from MolNotator.sample_slicer import sample_slicer
-from MolNotator.fragnotator import fragnotator
-from MolNotator.adnotator import adnotator
-from MolNotator.mode_merger import mode_merger
-from MolNotator.dereplicator import dereplicator
-from MolNotator.cosiner import cosiner
-from MolNotator.molnet import molnet
+from MolNotator.MolNotator import duplicate_filter
+from MolNotator.MolNotator.sample_slicer import sample_slicer
+from MolNotator.MolNotator.fragnotator import fragnotator
+from MolNotator.MolNotator.adnotator import adnotator
+from MolNotator.MolNotator.mode_merger import mode_merger
+from MolNotator.MolNotator.dereplicator import dereplicator
+from MolNotator.MolNotator.cosiner import cosiner
+from MolNotator.MolNotator.molnet import molnet
 
 wd = 'D:/Dropbox/0_Atronerium/Python/molnotator_test_2'
 os.chdir(wd)
