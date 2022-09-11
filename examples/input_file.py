@@ -8,6 +8,9 @@ from MolNotator.mode_merger import mode_merger
 from MolNotator.dereplicator import dereplicator
 from MolNotator.cosiner import cosiner
 from MolNotator.molnet import molnet
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
 
 wd = 'set/path/'
 os.chdir(wd)
