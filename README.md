@@ -25,7 +25,7 @@ working_directory
 |   |   211005_MIX_LDB.mgf
 |   |   211018_COLOTUS_DB.tsv
 |   
-|___mzmine_out
+|___input_files
 |   |   200909_LDB_Thermo_NEG.csv
 |   |   200909_LDB_Thermo_NEG.mgf
 |   |   200912_LDB_Thermo_POS.csv
@@ -84,8 +84,8 @@ Global networks containing all samples are produced at each step, but they can b
 ### Dependencies
 Before installing MolNotator, make sure you have the following requirements installed:
 
-- pandas
-- NumPy
+- pandas == 1.3.5
+- NumPy == 1.20.3
 - matchms <= 0.6.2
 - tqdm
 - PyYaml
@@ -93,7 +93,8 @@ Before installing MolNotator, make sure you have the following requirements inst
 These dependencies can be installed using the following command :
 
 ```bash
- pip install -U pandas numpy matchms==0.6.2 tqdm pyyaml
+ conda install pandas==1.3.5 numpy==1.20.3 tqdm pyyaml -c conda-forge
+ conda install matchms==0.6.2 -c bioconda
 ```
 ### Via PyPI
 We deploy the MolNotator package to [PyPi](https://pypi.org/project/MolNotator/). You can install MolNotator as a python module with:
@@ -118,80 +119,78 @@ MolNotator depends on a python [input file](https://github.com/ZzakB/MolNotator/
 ```python
 import os 
 import yaml
-from MolNotator.Duplicate_filter import Duplicate_filter
-from MolNotator.MGF_sample_slicer import mgf_slicer
-from MolNotator.Fragnotator import Fragnotator
-from MolNotator.Adnotator import Adnotator
-from MolNotator.MGF_updater import MGF_updater
-from MolNotator.Mode_merger import Moder_merger
-from MolNotator.Dereplicator import Dereplicator
-from MolNotator.Cosiner import Cosiner
-from MolNotator.MolNet import MolNet
+from MolNotator.duplicate_filter import duplicate_filter
+from MolNotator.sample_slicer import sample_slicer
+from MolNotator.fragnotator import fragnotator
+from MolNotator.adnotator import adnotator
+from MolNotator.mode_merger import mode_merger
+from MolNotator.dereplicator import dereplicator
+from MolNotator.cosiner import cosiner
+from MolNotator.molnet import molnet
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
-wd = './working_directory' # <---- change the path to your working directory
+wd = 'set/path/'
 os.chdir(wd)
 
 for files in os.listdir(os.getcwd()):
-    if files not in ['databases','mzmine_out','params']:
+    if files not in ['databases','input_files','params']:
         raise Exception('Potential output files already exist! They need to be removed or moved outside the working directory.')
-
+        
 with open("./params/params.yaml") as info:
     params = yaml.load(info, Loader=yaml.FullLoader)
 
 
 # Duplicate filtering on MZmine's MGF and CSV files (NEG):
-Duplicate_filter(params = params,
+duplicate_filter(params = params,
                  ion_mode = "NEG")
 
 # Duplicate filtering on MZmine's MGF and CSV files (POS):
-Duplicate_filter(params = params,
+duplicate_filter(params = params,
                  ion_mode = "POS")
 
 # Slicing the negative mode MGF file
-mgf_slicer(params = params,
+sample_slicer(params = params,
            ion_mode = "NEG")
 
 # Slicing the positive mode MGF file
-mgf_slicer(params = params,
+sample_slicer(params = params,
            ion_mode = "POS")
 
 # Use fragnotator on the negative mode sliced MGF files
-Fragnotator(params = params,
+fragnotator(params = params,
             ion_mode = "NEG")
 
 # Use fragnotator on the positive mode sliced MGF files
-Fragnotator(params = params,
+fragnotator(params = params,
             ion_mode = "POS")
 
 # Use adnotator on the negative mode data
-Adnotator(params = params,
+adnotator(params = params,
           ion_mode = "NEG")
 
 # Use adnotator on the positive mode data
-Adnotator(params = params,
+adnotator(params = params,
           ion_mode = "POS")
 
 # Use Moder Merger to merge negative and positive mode data :
-Moder_merger(params = params)
+mode_merger(params = params)
 
-# Update the MGF files and the node tables with SIRIUS formulas and other annotations
-MGF_updater(params = params)
 
 # Dereplicate the data using the database specified in the YAML file
 for db_params in params['db_params']:
     print("Dereplicating using the " + db_params + " file...")
     with open("./params/" + db_params) as info:
         db_params = yaml.load(info, Loader=yaml.FullLoader)    
-    Dereplicator(params = params,
+    dereplicator(params = params,
                  db_params = db_params)
 
 # Compute cosine similarity between some nodes.
-Cosiner(params = params)
+cosiner(params = params)
 
 # Produce molecular networks, neutral nodes only
-MolNet(params = params)
+molnet(params = params)
 ```
-
 Then MolNotator can be runned using the input file above mentioned with the following command : 
 ```python
 python input_file.py
