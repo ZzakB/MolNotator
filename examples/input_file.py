@@ -1,6 +1,6 @@
 import os 
 import yaml
-from MolNotator import duplicate_filter
+from MolNotator.duplicate_filter import duplicate_filter
 from MolNotator.sample_slicer import sample_slicer
 from MolNotator.fragnotator import fragnotator
 from MolNotator.adnotator import adnotator
