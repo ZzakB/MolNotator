@@ -7,7 +7,7 @@ pos_mgf: '200912_LDB_Thermo_POS.mgf' # Input MGF output for POS data
 pos_csv: '200912_LDB_Thermo_POS.csv' # Input CSV output for POS data
 neg_mgf: '200909_LDB_Thermo_NEG.mgf' # Input MGF output for NEG data
 neg_csv: '200909_LDB_Thermo_NEG.csv' # Input CSV output for NEG data
-rt_field: 'rtinseconds' # rt field to be used from the spectrum file
+rt_field: 'rtinseconds' # rt field to be used from the spectrum and csv files
 mz_field: 'pepmass' # mz field to be used from the spectrum file
 charge_field: 'charge' # charge field in the spectrum file
 rt_unit: 's' # 's' or 'm', seconds or minutes.
