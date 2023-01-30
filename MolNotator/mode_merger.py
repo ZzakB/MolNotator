@@ -1118,7 +1118,7 @@ def mode_merger(params : dict):
     tmp_candidates_table = list()
     for comb in candidates_table['mix_idx'].unique():
         tmp_candidates_table.append((candidates_table[candidates_table['mix_idx'] == comb].iloc[0].tolist()))    
-    candidates_table = pd.DataFrame(tmp_candidates_table, columns = ['neg_ion', 'neg_adduct', 'neg_complexity', 'pos_ion', 'pos_adduct', 'pos_complexity', 'mix_idx'])    
+    candidates_table = pd.DataFrame(tmp_candidates_table, columns = ['pos_ion', 'pos_adduct', 'pos_complexity', 'neg_ion', 'neg_adduct', 'neg_complexity', 'mix_idx'])    
 
     # Make a neutral table:
     neutral_idx = 0
@@ -1164,8 +1164,8 @@ def mode_merger(params : dict):
         for i in tmp_table_1['neg_ion'].unique():
             idx = tmp_table_1.index[tmp_table_1['neg_ion'] == i][0]
             spec_id = int(merged_node_table.loc[i, "spec_id"])
-            ion_mz = merged_node_table.loc[i, "mz"]
-            ion_rt = merged_node_table.loc[i, "rt"]
+            ion_mz = merged_node_table.loc[i, mz_field]
+            ion_rt = merged_node_table.loc[i, rt_field]
             ion_tic = merged_node_table.loc[i, "TIC"]
             ion_adduct = tmp_table_1.loc[idx, "neg_adduct"]
             ion_samples = merged_node_table.loc[i, "samples"]
