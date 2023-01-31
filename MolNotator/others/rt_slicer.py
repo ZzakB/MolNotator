@@ -23,8 +23,8 @@ def rt_slicer(rt : float, rt_error : float, ion_id, input_table, rt_field : str)
         Dataframe of ions coeluted with the selected ion.
 
     """
-    rt_low = rt - rt_error
-    rt_high = rt + rt_error
+    rt_low = float(rt) - rt_error
+    rt_high = float(rt) + rt_error
     sliced_table = input_table[input_table[rt_field].between(rt_low,
                               rt_high, inclusive = "both")].copy()
     return sliced_table.drop(ion_id)
