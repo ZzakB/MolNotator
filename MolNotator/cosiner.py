@@ -36,14 +36,15 @@ def cosiner(params : dict):
     if not os.path.isdir(out_path_samples) :
         os.mkdir(out_path_samples)
 
-    # Load node and edge tables
-    node_table = pd.read_csv(in_path + "node_table.csv", index_col = "Index")
-    edge_table  = pd.read_csv(in_path + "edge_table.csv", index_col = "Index")
-    
-    # Load spectrum files
+
     
     # if single mode NEG
     if params['process_mode'] == "NEG":
+        
+        # Load node and edge tables
+        node_table = pd.read_csv(in_path + "node_table.csv", index_col = params['index_col'])
+        edge_table  = pd.read_csv(in_path + "edge_table.csv", index_col = "Index")
+        
         mgf = list(load_from_mgf(mzmine_path_neg + neg_mgf_file))
         mgf = [Spectrum_processing(s) for s in mgf]
         
@@ -57,6 +58,12 @@ def cosiner(params : dict):
         
     # If single mode POS
     elif params['process_mode'] == "POS":
+        
+        # Load node and edge tables
+        node_table = pd.read_csv(in_path + "node_table.csv", index_col = params['index_col'])
+        edge_table  = pd.read_csv(in_path + "edge_table.csv", index_col = "Index")
+        
+        
         mgf = list(load_from_mgf(mzmine_path_pos + pos_mgf_file))
         mgf = [Spectrum_processing(s) for s in mgf]
 
@@ -67,6 +74,7 @@ def cosiner(params : dict):
 
         cosiner_single(node_table, edge_table, mgf, mgf_data, params['process_mode'], params)
         return
+
 
     # If double mode ("BOTH")
     else:
@@ -83,6 +91,12 @@ def cosiner(params : dict):
         pos_mgf_data = pd.Series(dtype = int)
         for i in range(len(pos_mgf)):
             pos_mgf_data.loc[int(pos_mgf[i].get(idx_column))] = i
+    
+    
+    # Load node and edge tables
+    
+    node_table = pd.read_csv(in_path + "node_table.csv", index_col = "Index")
+    edge_table  = pd.read_csv(in_path + "edge_table.csv", index_col = "Index")
     
     # List the molecular clusters (clusters with at least one neutral node)
     cluster_list = []
