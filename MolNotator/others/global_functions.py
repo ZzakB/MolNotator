@@ -3048,121 +3048,121 @@ def cosiner_single(node_table, edge_table, mgf, mgf_data, ion_mode, params):
         cluster_ion_list[i] = '|'.join(node_table.loc[tmp_rows, 'spec_id'].dropna().astype(int).astype(str))
     cluster_ion_list.sort_index(inplace = True)
 
-    
-    full_node_1 = []
-    full_node_2 = []
-    full_cluster_ids = []
-    full_cosine = []
-    full_matches = []
-    for i in tqdm(remains_ions):
-        i_id = int(node_table.loc[i, idx_column])
-        i_spectrum = mgf[mgf_data[i_id]]
-        tmp_cluster_list = []
-        tmp_id_list = []
-        tmp_cosine_list = []
-        tmp_prod_list = []
-        tmp_match_list = []
-        for j in cluster_ion_list.index:
-            ion_list = list(map(int, cluster_ion_list[j].split('|')))
-            cos_list = list()
-            match_list = list()
-            id_list = list()
-            prod_list = list()
-            for k in ion_list:
-                score, n_matches = modified_cosine.pair(i_spectrum, mgf[k])
-                id_list.append(int(mgf[k].get(idx_column)))
-                cos_list.append(score)
-                match_list.append(n_matches)
-                prod_list.append(score * n_matches)
-            tmp_prod_list.append(max(prod_list))
-            tmp_cosine_list.append(cos_list[prod_list.index(max(prod_list))])
-            tmp_match_list.append(match_list[prod_list.index(max(prod_list))])
-            tmp_id_list.append(id_list[prod_list.index(max(prod_list))])
-            tmp_cluster_list.append(j)
-        tmp_table = pd.DataFrame(list(zip(tmp_id_list, tmp_cluster_list, tmp_cosine_list, tmp_prod_list, tmp_match_list)),
-                                 columns = [f'ion_{idx_column}', 'cluster_id', 'cosine', 'prod', 'matches'])
-        tmp_table = tmp_table.loc[tmp_table['prod'].idxmax()]
-        
-        counter_feature_id = tmp_table[f'ion_{idx_column}']
-        counter_idx = node_table.index[node_table[idx_column] == counter_feature_id][0]
-        full_node_1.append(i)
-        full_node_2.append(counter_idx)
-        full_cluster_ids.append(tmp_table['cluster_id'])
-        full_cosine.append(round(tmp_table['cosine'], 2))
-        full_matches.append(tmp_table['matches'])
+    if len(cluster_list) > 0 :
+        full_node_1 = []
+        full_node_2 = []
+        full_cluster_ids = []
+        full_cosine = []
+        full_matches = []
+        for i in tqdm(remains_ions):
+            i_id = int(node_table.loc[i, idx_column])
+            i_spectrum = mgf[mgf_data[i_id]]
+            tmp_cluster_list = []
+            tmp_id_list = []
+            tmp_cosine_list = []
+            tmp_prod_list = []
+            tmp_match_list = []
+            for j in cluster_ion_list.index:
+                ion_list = list(map(int, cluster_ion_list[j].split('|')))
+                cos_list = list()
+                match_list = list()
+                id_list = list()
+                prod_list = list()
+                for k in ion_list:
+                    score, n_matches = modified_cosine.pair(i_spectrum, mgf[k])
+                    id_list.append(int(mgf[k].get(idx_column)))
+                    cos_list.append(score)
+                    match_list.append(n_matches)
+                    prod_list.append(score * n_matches)
+                tmp_prod_list.append(max(prod_list))
+                tmp_cosine_list.append(cos_list[prod_list.index(max(prod_list))])
+                tmp_match_list.append(match_list[prod_list.index(max(prod_list))])
+                tmp_id_list.append(id_list[prod_list.index(max(prod_list))])
+                tmp_cluster_list.append(j)
+            tmp_table = pd.DataFrame(list(zip(tmp_id_list, tmp_cluster_list, tmp_cosine_list, tmp_prod_list, tmp_match_list)),
+                                     columns = [f'ion_{idx_column}', 'cluster_id', 'cosine', 'prod', 'matches'])
+            tmp_table = tmp_table.loc[tmp_table['prod'].idxmax()]
 
-    cosine_table = pd.DataFrame()
-    cosine_table['node_1'] = full_node_1
-    cosine_table['node_2'] = full_node_2
-    cosine_table['cluster_id'] = full_cluster_ids
-    cosine_table['cosine'] = full_cosine
-    cosine_table['matches'] = full_matches
-    cosine_table = cosine_table[cosine_table['cosine'] >= cosiner_threshold]
-    cosine_table = cosine_table[cosine_table['matches'] >= matched_peaks]
-    
-    edge_table['cosine_score'] = [0.0]*len(edge_table)
-    for i in tqdm(cosine_table.index):
-        cosined_ion = cosine_table.loc[i, "node_1"]
-        linked_ion = cosine_table.loc[i, "node_2"]
-        old_edge = edge_table.index[edge_table['node_1'] == cosined_ion][0]
-        if (edge_table.loc[old_edge, "status_universal"] == "self_edge") :
-            edge_table.drop(old_edge, inplace = True)
-        node_table.loc[cosined_ion, "status"] = node_table.loc[cosined_ion, "status"][:4] + "cossingleton"
-        node_table.loc[cosined_ion, "status_universal"] = "cossingleton"
-        node_table.loc[cosined_ion, "cluster_id"] = cosine_table.loc[i, "cluster_id"]
-        rt_gap = round(abs(node_table.loc[cosined_ion, rt_field] - node_table.loc[linked_ion, rt_field]),3)
-        mz_gap = round(abs(node_table.loc[cosined_ion, mz_field] - node_table.loc[linked_ion, mz_field]),4)
-        cosine_score = cosine_table.loc[i, "cosine"]
-        ion_mode = node_table.loc[cosined_ion, "ion_mode"]
-        n_matches = cosine_table.loc[i, "matches"]
-        new_edge = max(edge_table.index) + 1
-        edge_table.loc[new_edge] = [None]*len(edge_table.columns)
-        edge_table.loc[new_edge, ["node_1", "node_2", "matched_peaks", "total_peaks",
-                                  "matching_score", "rt_gap", "mz_gap", "status",
-                                  "status_universal", "All_annotations", "ion_mode",
-                                  "cosine_score"]] = [linked_ion, cosined_ion,
-                    n_matches, 0, 0, rt_gap, mz_gap, ion_mode.lower() + "_singcos_edge",
-                    "singcos_edge", cosine_score, ion_mode, cosine_score]
-    edge_table.reset_index(drop = True, inplace = True)
+            counter_feature_id = tmp_table[f'ion_{idx_column}']
+            counter_idx = node_table.index[node_table[idx_column] == counter_feature_id][0]
+            full_node_1.append(i)
+            full_node_2.append(counter_idx)
+            full_cluster_ids.append(tmp_table['cluster_id'])
+            full_cosine.append(round(tmp_table['cosine'], 2))
+            full_matches.append(tmp_table['matches'])
 
-    neutral_idx = list(node_table.index[node_table['status'].str.contains('neutral')])
-    for neutral in tqdm(neutral_idx):
-        tmp_edge_table = edge_table[edge_table['node_1'] == neutral]
-        node_2_list = list(tmp_edge_table['node_2'])
-        tmp_edges = []
-        while len(node_2_list) > 1 :
-            ion_1 = node_2_list[0]
-            ion_1_mgf_idx = int(node_table.loc[ion_1, "spec_id"])
-            ion_1_spectrum = mgf[ion_1_mgf_idx]
-            ion_1_rt = node_table.loc[ion_1, rt_field]
-            ion_1_mz = node_table.loc[ion_1, mz_field]
-            node_2_list.remove(ion_1)
-            for ion_2 in node_2_list:
-                ion_2_mgf_idx = int(node_table.loc[ion_2, "spec_id"])
-                ion_2_spectrum = mgf[ion_2_mgf_idx]
-                ion_2_rt = node_table.loc[ion_2, rt_field]
-                ion_2_mz = node_table.loc[ion_2, mz_field]
-                rt_gap = round(ion_1_rt - ion_2_rt, 3)
-                mz_gap = round(ion_1_mz - ion_2_mz, 4)
-                score, n_matches = modified_cosine.pair(ion_1_spectrum, ion_2_spectrum)
-                tmp_edges.append((ion_1, ion_2, round(score, 2), rt_gap, mz_gap, ion_mode.lower()))
-        for edge in tmp_edges:
-            node_1 = edge[0]
-            node_2 = edge[1]
-            cos = edge[2]
-            if cos < cosine_threshold : continue
-            rt_gap = edge[3]
-            mz_gap = edge[4]
-            tmp_ion_mode = edge[5]
-            new_idx = max(edge_table.index) + 1
-            edge_table.loc[new_idx] = [None]*len(edge_table.columns)
-            edge_table.loc[new_idx, ["node_1", "node_2", "matched_peaks",
-                                     "total_peaks", "matching_score", "rt_gap",
-                                     "mz_gap", "status", "status_universal",
-                                     "All_annotations", "ion_mode",
-                                     "cosine_score"]] = [node_1, node_2, 0, 0, 0,
-                                     rt_gap, mz_gap, tmp_ion_mode + "_cos_edge",
-                                     "cos_edge", cos, tmp_ion_mode.upper(), cos]
+        cosine_table = pd.DataFrame()
+        cosine_table['node_1'] = full_node_1
+        cosine_table['node_2'] = full_node_2
+        cosine_table['cluster_id'] = full_cluster_ids
+        cosine_table['cosine'] = full_cosine
+        cosine_table['matches'] = full_matches
+        cosine_table = cosine_table[cosine_table['cosine'] >= cosiner_threshold]
+        cosine_table = cosine_table[cosine_table['matches'] >= matched_peaks]
+
+        edge_table['cosine_score'] = [0.0]*len(edge_table)
+        for i in tqdm(cosine_table.index):
+            cosined_ion = cosine_table.loc[i, "node_1"]
+            linked_ion = cosine_table.loc[i, "node_2"]
+            old_edge = edge_table.index[edge_table['node_1'] == cosined_ion][0]
+            if (edge_table.loc[old_edge, "status_universal"] == "self_edge") :
+                edge_table.drop(old_edge, inplace = True)
+            node_table.loc[cosined_ion, "status"] = node_table.loc[cosined_ion, "status"][:4] + "cossingleton"
+            node_table.loc[cosined_ion, "status_universal"] = "cossingleton"
+            node_table.loc[cosined_ion, "cluster_id"] = cosine_table.loc[i, "cluster_id"]
+            rt_gap = round(abs(node_table.loc[cosined_ion, rt_field] - node_table.loc[linked_ion, rt_field]),3)
+            mz_gap = round(abs(node_table.loc[cosined_ion, mz_field] - node_table.loc[linked_ion, mz_field]),4)
+            cosine_score = cosine_table.loc[i, "cosine"]
+            ion_mode = node_table.loc[cosined_ion, "ion_mode"]
+            n_matches = cosine_table.loc[i, "matches"]
+            new_edge = max(edge_table.index) + 1
+            edge_table.loc[new_edge] = [None]*len(edge_table.columns)
+            edge_table.loc[new_edge, ["node_1", "node_2", "matched_peaks", "total_peaks",
+                                      "matching_score", "rt_gap", "mz_gap", "status",
+                                      "status_universal", "All_annotations", "ion_mode",
+                                      "cosine_score"]] = [linked_ion, cosined_ion,
+                        n_matches, 0, 0, rt_gap, mz_gap, ion_mode.lower() + "_singcos_edge",
+                        "singcos_edge", cosine_score, ion_mode, cosine_score]
+        edge_table.reset_index(drop = True, inplace = True)
+
+        neutral_idx = list(node_table.index[node_table['status'].str.contains('neutral')])
+        for neutral in tqdm(neutral_idx):
+            tmp_edge_table = edge_table[edge_table['node_1'] == neutral]
+            node_2_list = list(tmp_edge_table['node_2'])
+            tmp_edges = []
+            while len(node_2_list) > 1 :
+                ion_1 = node_2_list[0]
+                ion_1_mgf_idx = int(node_table.loc[ion_1, "spec_id"])
+                ion_1_spectrum = mgf[ion_1_mgf_idx]
+                ion_1_rt = node_table.loc[ion_1, rt_field]
+                ion_1_mz = node_table.loc[ion_1, mz_field]
+                node_2_list.remove(ion_1)
+                for ion_2 in node_2_list:
+                    ion_2_mgf_idx = int(node_table.loc[ion_2, "spec_id"])
+                    ion_2_spectrum = mgf[ion_2_mgf_idx]
+                    ion_2_rt = node_table.loc[ion_2, rt_field]
+                    ion_2_mz = node_table.loc[ion_2, mz_field]
+                    rt_gap = round(ion_1_rt - ion_2_rt, 3)
+                    mz_gap = round(ion_1_mz - ion_2_mz, 4)
+                    score, n_matches = modified_cosine.pair(ion_1_spectrum, ion_2_spectrum)
+                    tmp_edges.append((ion_1, ion_2, round(score, 2), rt_gap, mz_gap, ion_mode.lower()))
+            for edge in tmp_edges:
+                node_1 = edge[0]
+                node_2 = edge[1]
+                cos = edge[2]
+                if cos < cosine_threshold : continue
+                rt_gap = edge[3]
+                mz_gap = edge[4]
+                tmp_ion_mode = edge[5]
+                new_idx = max(edge_table.index) + 1
+                edge_table.loc[new_idx] = [None]*len(edge_table.columns)
+                edge_table.loc[new_idx, ["node_1", "node_2", "matched_peaks",
+                                         "total_peaks", "matching_score", "rt_gap",
+                                         "mz_gap", "status", "status_universal",
+                                         "All_annotations", "ion_mode",
+                                         "cosine_score"]] = [node_1, node_2, 0, 0, 0,
+                                         rt_gap, mz_gap, tmp_ion_mode + "_cos_edge",
+                                         "cos_edge", cos, tmp_ion_mode.upper(), cos]
 
     # Produce cosine clusters between singletons and non-molecular clustered precursors/fragments
     non_molecular_clusters = list(set(node_table['cluster_id'].unique()) - set(cluster_list))
