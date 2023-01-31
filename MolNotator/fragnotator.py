@@ -100,8 +100,8 @@ def fragnotator(params : dict, ion_mode : str):
         edge_table['All_annotations'] = all_annotations
         
         # Round values
-        node_table[params["mz_field"]] = node_table[params["mz_field"]].round(4)
-        node_table[params["rt_field"]] = node_table[params["rt_field"]].round(2)
+        node_table[params["mz_field"]] = node_table[params["mz_field"]].astype(float).round(4)
+        node_table[params["rt_field"]] = node_table[params["rt_field"]].astype(float).round(2)
         edge_table['matching_score'] = edge_table['matching_score'].round(2)
         edge_table['rt_gap'] = edge_table['rt_gap'].round(2)
         edge_table['mz_gap'] = edge_table['mz_gap'].round(4)
