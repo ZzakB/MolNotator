@@ -25,6 +25,6 @@ def rt_slicer(rt : float, rt_error : float, ion_id, input_table, rt_field : str)
     """
     rt_low = float(rt) - rt_error
     rt_high = float(rt) + rt_error
-    sliced_table = input_table[input_table[rt_field].between(rt_low,
+    sliced_table = input_table[input_table[rt_field].astype(float).between(rt_low,
                               rt_high, inclusive = "both")].copy()
     return sliced_table.drop(ion_id)
