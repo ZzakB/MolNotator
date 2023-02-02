@@ -30,6 +30,10 @@ def fragnotator_edge_table(node_table, mgf_file, params):
     mz_field = params['mz_field']
     
 
+    # If the retention time is in minutes
+    if params['rt_unit'] == "m":
+        rt_error = rt_error/60
+
     # For each ion, search fragment candidates
     edge_table = list()
     for i in tqdm(node_table.index) :
