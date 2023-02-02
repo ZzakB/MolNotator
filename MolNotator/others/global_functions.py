@@ -2814,6 +2814,7 @@ def update_edge_table(merged_node_table, merged_edge_table, adduct_table_merged)
     # Round and correct value types
     merged_edge_table['mz_gap'] = merged_edge_table['mz_gap'].astype(float)
     merged_edge_table['mz_gap'] = merged_edge_table['mz_gap'].round(4)
+    merged_edge_table['rt_gap'] = merged_edge_table['rt_gap'].astype(float)
     merged_edge_table['rt_gap'] = merged_edge_table['rt_gap'].round(3)
 
     # Change all annotations position
