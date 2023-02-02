@@ -34,6 +34,10 @@ def duplicate_finder(node_table, spectrum_list, params, ion_mode):
     rt_field = params['rt_field']
     mz_field = params['mz_field']
     modified_cosine = ModifiedCosine(tolerance=mass_error)
+    
+    # If the retention time is in minutes
+    if params['rt_unit'] == "m":
+        rt_error = rt_error/60
 
     # Start finding duplciates using the node_table index to identify ions.
     ions_idx = list(node_table.index)
