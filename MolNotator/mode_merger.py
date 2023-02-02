@@ -17,14 +17,7 @@ def mode_merger(params : dict):
     rt_field = params['rt_field']
     col_suffix = params['col_suffix']
     idx_column = params['index_col']
-    in_path_full_neg= params['neg_out_0']
-    in_path_full_pos= params['pos_out_0']
-    neg_spectrum_file= params['neg_mgf']
-    pos_spectrum_file= params['pos_mgf']
-    pos_csv= params['pos_csv']
-    neg_csv= params['neg_csv']
-    adnotation_pos= params['pos_out_3_1']
-    adnotation_neg= params['neg_out_3_1']
+
     out_full= params['mix_out_4_1']
     out_samples= params['mix_out_4_2']
     
@@ -48,12 +41,22 @@ def mode_merger(params : dict):
     if skip == True:
         ion_mode = params['process_mode']
         # Loading files: POS and NEG node tables, edge tables and the global CSV
-        edge_table = pd.read_csv(adnotation_pos + "edge_table.csv", index_col = "Index")
-        node_table = pd.read_csv(adnotation_pos + "node_table.csv", index_col = idx_column)
         if ion_mode == "POS":
+            in_path_full_pos= params['pos_out_0']
+            pos_spectrum_file= params['pos_mgf']
+            pos_csv= params['pos_csv']
+            adnotation_pos= params['pos_out_3_1']
             csv_table = pd.read_csv(in_path_full_pos + pos_csv, index_col = idx_column)
+            edge_table = pd.read_csv(adnotation_pos + "edge_table.csv", index_col = "Index")
+            node_table = pd.read_csv(adnotation_pos + "node_table.csv", index_col = idx_column)
         elif ion_mode == "NEG":
+            in_path_full_neg= params['neg_out_0']
+            neg_spectrum_file= params['neg_mgf']
+            neg_csv= params['neg_csv']
+            adnotation_neg= params['neg_out_3_1']
             csv_table = pd.read_csv(in_path_full_neg + neg_csv, index_col = idx_column)
+            edge_table = pd.read_csv(adnotation_neg + "edge_table.csv", index_col = "Index")
+            node_table = pd.read_csv(adnotation_neg + "node_table.csv", index_col = idx_column)
         else:
             print("Specify ion mode for single ion mode processing in the parameters")
             return
@@ -85,6 +88,17 @@ def mode_merger(params : dict):
         node_table.to_csv(out_full + "node_table.csv", index_label = "Index")
         edge_table.to_csv(out_full + "edge_table.csv", index_label = "Index")
         return
+    
+    # If double mode (and do actual mode merging)
+    in_path_full_neg= params['neg_out_0']
+    in_path_full_pos= params['pos_out_0']
+    neg_spectrum_file= params['neg_mgf']
+    pos_spectrum_file= params['pos_mgf']
+    pos_csv= params['pos_csv']
+    neg_csv= params['neg_csv']
+    adnotation_pos= params['pos_out_3_1']
+    adnotation_neg= params['neg_out_3_1']
+    
     
     # Load and filter the global spectrum files in pos and neg
     print("Loading and filtering NEG spectrum file...")
