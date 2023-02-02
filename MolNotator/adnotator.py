@@ -28,6 +28,11 @@ def adnotator(params : dict, ion_mode : str):
     # Load parameters:
     rt_error= params['an_rt_error']
     idx_column = params['index_col']
+    
+    # If the retention time is in minutes
+    if params['rt_unit'] == "m":
+        rt_error = rt_error/60
+    
     if ion_mode == "NEG":
         in_path_full= params['neg_out_0']
         csv_file= params['neg_csv']
