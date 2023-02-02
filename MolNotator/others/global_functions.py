@@ -1626,6 +1626,12 @@ def get_secondary_adducts(cross_annotations, cross_points, cross_courts,
     the secondary adducts table. This is done on the basis of the already
     computed molecules and consumes less resources. 
     """
+    
+    rt_error = params['an_rt_error']
+    if params['rt_unit'] == "m":
+        rt_error = rt_error/60
+    
+    
     modified_cosine = ModifiedCosine(tolerance=params['an_mass_error'])
     
     # Get annotated ions
@@ -1642,7 +1648,7 @@ def get_secondary_adducts(cross_annotations, cross_points, cross_courts,
         neutrals = cross_neutrals.loc[ion_id, sample_base_name].split('&')
         annotations = cross_annotations.loc[ion_id, sample_base_name].split('&')
         neutral_rt = node_table.loc[ion_id, params['rt_field']]
-        coelution_table = unnannotated_table[unnannotated_table[params['rt_field']].between(neutral_rt - params['an_rt_error'],  neutral_rt + params['an_rt_error'], inclusive = "both")]
+        coelution_table = unnannotated_table[unnannotated_table[params['rt_field']].between(neutral_rt - rt_error,  neutral_rt + rt_error, inclusive = "both")]
         houses = cross_houses.loc[ion_id, sample_base_name].split('&')
 
         # Go through each house in case multiple annotations for a single ion
@@ -2224,6 +2230,10 @@ def neutral_merger(neutral_table, adduct_table_merged, params : dict):
     # Load parameters
     rt_error = params['an_rt_error']
     mass_error = params['an_mass_error']
+    
+    # If the retention time is in minutes
+    if params['rt_unit'] == "m":
+        rt_error = rt_error/60
     
     # Create the ouput neutral table
     neutral_table_2 = pd.DataFrame(columns = ["mass", "rt", "points"] + list(adduct_table_merged['Adduct_code']))
