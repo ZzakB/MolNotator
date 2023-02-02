@@ -31,7 +31,10 @@ def mode_merger(params : dict):
     bnr_list_neg = params['mm_bnr_neg']
     bnr_list_pos = params['mm_bnr_pos']
 
-
+    # If the retention time is in minutes
+    if params['rt_unit'] == "m":
+        rt_error = rt_error/60
+        
     # Make out dir
     if not os.path.isdir(out_full) :
         os.mkdir(out_full)
