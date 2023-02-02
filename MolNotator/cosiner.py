@@ -40,7 +40,7 @@ def cosiner(params : dict):
         neg_mgf_file= params['neg_mgf']
         
         # Load node and edge tables
-        node_table = pd.read_csv(in_path + "node_table.csv", index_col = params['index_col'])
+        node_table = pd.read_csv(in_path + "node_table.csv", index_col = "Index")
         edge_table  = pd.read_csv(in_path + "edge_table.csv", index_col = "Index")
         
         mgf = list(load_from_mgf(mzmine_path_neg + neg_mgf_file))
@@ -62,7 +62,7 @@ def cosiner(params : dict):
         pos_mgf_file= params['pos_mgf']
         
         # Load node and edge tables
-        node_table = pd.read_csv(in_path + "node_table.csv", index_col = params['index_col'])
+        node_table = pd.read_csv(in_path + "node_table.csv", index_col = "Index")
         edge_table  = pd.read_csv(in_path + "edge_table.csv", index_col = "Index")
         
         
