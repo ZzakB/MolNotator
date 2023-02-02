@@ -61,6 +61,8 @@ def fragnotator(params : dict, ion_mode : str):
         # Reindex the node table
         node_table = reindexer(node_table, params)
 
+        # Coerce RT dtype in node_table
+        node_table[params["rt_field"]] = node_table[params["rt_field"]].astype(float)
         
         # Get the parent-fragment pairs:
         print('Pairing in-source precursors and fragments...')
