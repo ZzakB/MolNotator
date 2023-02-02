@@ -13,12 +13,6 @@ def cosiner(params : dict):
     rt_field = params['rt_field']
     mz_field = params['mz_field']
     idx_column = params['index_col']
-    mzmine_path_neg= params['neg_out_0']
-    mzmine_path_pos= params['pos_out_0']
-    neg_csv_file= params['neg_csv']
-    pos_csv_file= params['pos_csv']
-    neg_mgf_file= params['neg_mgf']
-    pos_mgf_file= params['pos_mgf']
     in_path= params['mix_out_5_1']
     out_path_full= params['mix_out_6_1']
     out_path_samples= params['mix_out_6_2']
@@ -41,6 +35,10 @@ def cosiner(params : dict):
     # if single mode NEG
     if params['process_mode'] == "NEG":
         
+        mzmine_path_neg= params['neg_out_0']
+        neg_csv_file= params['neg_csv']
+        neg_mgf_file= params['neg_mgf']
+        
         # Load node and edge tables
         node_table = pd.read_csv(in_path + "node_table.csv", index_col = params['index_col'])
         edge_table  = pd.read_csv(in_path + "edge_table.csv", index_col = "Index")
@@ -58,6 +56,10 @@ def cosiner(params : dict):
         
     # If single mode POS
     elif params['process_mode'] == "POS":
+        
+        mzmine_path_pos= params['pos_out_0']
+        pos_csv_file= params['pos_csv']
+        pos_mgf_file= params['pos_mgf']
         
         # Load node and edge tables
         node_table = pd.read_csv(in_path + "node_table.csv", index_col = params['index_col'])
@@ -78,6 +80,12 @@ def cosiner(params : dict):
 
     # If double mode ("BOTH")
     else:
+        mzmine_path_neg= params['neg_out_0']
+        mzmine_path_pos= params['pos_out_0']
+        neg_csv_file= params['neg_csv']
+        pos_csv_file= params['pos_csv']
+        neg_mgf_file= params['neg_mgf']
+        pos_mgf_file= params['pos_mgf']
         neg_mgf = list(load_from_mgf(mzmine_path_neg + neg_mgf_file))
         pos_mgf = list(load_from_mgf(mzmine_path_pos + pos_mgf_file))
         neg_mgf = [Spectrum_processing(s) for s in neg_mgf]
