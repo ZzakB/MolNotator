@@ -40,6 +40,10 @@ def dereplicator(params : dict, db_params : dict):
     db_export_fields= db_params['db_export_fields']
     db_prefix= db_params['db_prefix']
 
+    # If the retention time is in minutes
+    if params['rt_unit'] == "m":
+        db_rt_error = db_rt_error/60
+
     #Create folders and load tables
     if not os.path.isdir(out_path_full) :
         os.mkdir(out_path_full)
