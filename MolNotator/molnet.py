@@ -12,10 +12,7 @@ def molnet(params : dict):
     # Load parameters
     mz_field = params['mz_field']
     rt_field = params['rt_field']
-    mgf_path_neg= params['neg_out_0']
-    mgf_path_pos= params['pos_out_0']
-    mgf_file_neg= params['neg_mgf']
-    mgf_file_pos= params['pos_mgf']
+
     in_path= params['mix_out_6_1']
     out_path_full= params['mix_out_7_1']
     out_path_samples= params['mix_out_7_2']
@@ -48,16 +45,25 @@ def molnet(params : dict):
 
 
     if params['process_mode'] == "POS":
+        mgf_path_pos= params['pos_out_0']
+        mgf_file_pos= params['pos_mgf']
         mgf = list(load_from_mgf(mgf_path_pos + mgf_file_pos))
         mgf = [Spectrum_processing(s) for s in mgf]
         molnet_single(node_table, edge_table, mgf, params['process_mode'], params)
         return
     elif params['process_mode'] == "NEG" :
+        mgf_path_neg= params['neg_out_0']
+        mgf_file_neg= params['neg_mgf']
         mgf = list(load_from_mgf(mgf_path_neg + mgf_file_neg))
         mgf = [Spectrum_processing(s) for s in mgf]
         molnet_single(node_table, edge_table, mgf, params['process_mode'], params)
         return
 
+
+    mgf_path_neg= params['neg_out_0']
+    mgf_path_pos= params['pos_out_0']
+    mgf_file_neg= params['neg_mgf']
+    mgf_file_pos= params['pos_mgf']
 
     mgf_pos = list(load_from_mgf(mgf_path_pos + mgf_file_pos))
     mgf_neg = list(load_from_mgf(mgf_path_neg + mgf_file_neg))    
